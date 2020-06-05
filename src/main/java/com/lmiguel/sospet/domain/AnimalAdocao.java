@@ -3,6 +3,7 @@ package com.lmiguel.sospet.domain;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.lmiguel.sospet.domain.enums.IdadeAnimal;
 import com.lmiguel.sospet.domain.enums.PorteAnimal;
 import com.lmiguel.sospet.domain.enums.SexoAnimal;
 import com.lmiguel.sospet.domain.enums.StatusAnimal;
@@ -33,10 +34,10 @@ public class AnimalAdocao extends Animal{
 		
 	}
 
-	public AnimalAdocao(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, Usuario usuario, String nome, Integer idade, TipoPelagem pelagem, Boolean castrado, String raca) {
+	public AnimalAdocao(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, Usuario usuario, String nome, IdadeAnimal idade, TipoPelagem pelagem, Boolean castrado, String raca) {
 		super(id, tipo, sexo, porte, status, usuario);
 		this.nome = nome;
-		this.idade = idade;
+		this.idade = (idade == null) ? null : idade.getCode();
 		this.pelagem = (pelagem == null) ? null : pelagem.getCode();
 		this.castrado = castrado;
 		this.raca = raca;
@@ -50,12 +51,12 @@ public class AnimalAdocao extends Animal{
 		this.nome = nome;
 	}
 
-	public Integer getIdade() {
-		return idade;
+	public IdadeAnimal getIdade() {
+		return IdadeAnimal.toEnum(idade);
 	}
 
-	public void setIdade(Integer idade) {
-		this.idade = idade;
+	public void setIdade(IdadeAnimal idade) {
+		this.idade = idade.getCode();
 	}
 
 	public TipoPelagem getTipoPelagem() {

@@ -5,6 +5,10 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.lmiguel.sospet.domain.enums.PorteAnimal;
+import com.lmiguel.sospet.domain.enums.SexoAnimal;
+import com.lmiguel.sospet.domain.enums.StatusAnimal;
+import com.lmiguel.sospet.domain.enums.TipoAnimal;
 import com.lmiguel.sospet.domain.enums.TipoPelagem;
 
 @Entity
@@ -31,15 +35,17 @@ public class AnimalDesaparecido extends Animal {
 		
 	}
 
-
-	public AnimalDesaparecido(String nome, Date ultimaVezVisto, String raca, TipoPelagem pelagem, Boolean castrado) {
-		super();
+	public AnimalDesaparecido(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, Usuario usuario, String nome, Date ultimaVezVisto, String raca, TipoPelagem pelagem, Boolean castrado) {
+		super(id, tipo, sexo, porte, status, usuario);
 		this.nome = nome;
 		this.ultimaVezVisto = ultimaVezVisto;
 		this.raca = raca;
 		this.pelagem = (pelagem == null) ? null : pelagem.getCode();
 		this.castrado = castrado;
 	}
+
+
+
 
 
 	public String getNome() {

@@ -34,7 +34,7 @@ public class Endereco implements Serializable {
 	// ASSOCIAÇÕES
 	
 	@ManyToOne
-	@JoinColumn(name = "cidade_id")
+	@JoinColumn(name="cidade_id")
 	private Cidade cidade;
 	
 	@ManyToOne

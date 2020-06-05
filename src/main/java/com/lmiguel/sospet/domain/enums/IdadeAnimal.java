@@ -1,17 +1,15 @@
 package com.lmiguel.sospet.domain.enums;
 
 
-public enum StatusAnimal {
+public enum IdadeAnimal {
 	
-	DESAPARECIDO(1, "Desaparecido"),
-	ACHADO(2, "Achado"),
-	ADOCAO(3, "Adoção"),
-	ADOTADO(4, "Adotado");
+	FILHOTE(1, "Filhote"),
+	ADULTO(2, "Adulto");
 	
 	private int code;
 	private String desc;
 	
-	private StatusAnimal(int code, String desc) {
+	private IdadeAnimal(int code, String desc) {
 		this.code = code;
 		this.desc = desc;
 	}
@@ -32,13 +30,13 @@ public enum StatusAnimal {
 		this.desc = desc;
 	}
 	
-	public static StatusAnimal toEnum(Integer code) {
+	public static IdadeAnimal toEnum(Integer code) {
 	
 		if (code == null) {
 			return null;
 		}
 		
-		for (StatusAnimal x : StatusAnimal.values()) {
+		for (IdadeAnimal x : IdadeAnimal.values()) {
 			if (code.equals(x.getCode())) {
 				return x;
 			}
