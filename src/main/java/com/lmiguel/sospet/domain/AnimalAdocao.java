@@ -1,11 +1,16 @@
 package com.lmiguel.sospet.domain;
 
+import javax.persistence.Entity;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.lmiguel.sospet.domain.enums.PorteAnimal;
 import com.lmiguel.sospet.domain.enums.SexoAnimal;
 import com.lmiguel.sospet.domain.enums.StatusAnimal;
 import com.lmiguel.sospet.domain.enums.TipoAnimal;
 import com.lmiguel.sospet.domain.enums.TipoPelagem;
 
+@Entity
+@JsonTypeName("animalAdocao")
 public class AnimalAdocao extends Animal{
 
 	private static final long serialVersionUID = 1L;

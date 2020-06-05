@@ -6,8 +6,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 import com.lmiguel.sospet.domain.enums.SexoPessoa;
 
+@Entity
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -15,6 +24,8 @@ public class Usuario implements Serializable {
 	
 	// ATRIBUTOS DA CLASSE
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String nome;
@@ -23,14 +34,21 @@ public class Usuario implements Serializable {
 	
 	private Integer sexo;
 	
+	@ElementCollection
+	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 	
 	
 	// ASSOCIAÇÕES
 	
+	@OneToMany(mappedBy = "autor")
 	private List<Post> posts = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "usuario")
 	private List<Endereco> enderecos = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "usuario")
+	private Set<Animal> animais = new HashSet<>();
 		
 	
 	public Usuario() {
@@ -100,6 +118,14 @@ public class Usuario implements Serializable {
 
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+	
+	public Set<Animal> getAnimais() {
+		return animais;
+	}
+
+	public void setAnimais(Set<Animal> animais) {
+		this.animais = animais;
 	}
 
 	@Override

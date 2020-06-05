@@ -1,11 +1,16 @@
 package com.lmiguel.sospet.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class Post implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -13,6 +18,8 @@ public class Post implements Serializable {
 	
 	// ATRIBUTOS
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private Date data;
@@ -24,11 +31,10 @@ public class Post implements Serializable {
 	
 	// ASSOÇIAÇÕES
 	
+	@ManyToOne
+	@JoinColumn(name = "autor")
 	private Usuario autor;
-	
-	private List<Comentario> comentarios = new ArrayList<>();
-	
-	
+		
 	public Post() {
 		
 	}
@@ -93,17 +99,7 @@ public class Post implements Serializable {
 		this.autor = autor;
 	}
 
-
-	public List<Comentario> getComentarios() {
-		return comentarios;
-	}
-
-
-	public void addComentario(Comentario comentario){
-		comentarios.add(comentario);
-	}
-
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -130,12 +126,4 @@ public class Post implements Serializable {
 		return true;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Post [id=" + id + ", data=" + data + ", titulo=" + titulo + ", corpo=" + corpo + ", autor=" + autor
-				+ ", comentarios=" + comentarios + "]";
-	}
-	
-	
 }

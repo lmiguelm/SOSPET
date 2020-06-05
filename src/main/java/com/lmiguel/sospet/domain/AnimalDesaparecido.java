@@ -2,8 +2,13 @@ package com.lmiguel.sospet.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.lmiguel.sospet.domain.enums.TipoPelagem;
 
+@Entity
+@JsonTypeName("animalDesaparecido")
 public class AnimalDesaparecido extends Animal {
 
 	private static final long serialVersionUID = 1L;
