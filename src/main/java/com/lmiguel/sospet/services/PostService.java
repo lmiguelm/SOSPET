@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lmiguel.sospet.domain.Post;
 import com.lmiguel.sospet.repositories.PostRepository;
+import com.lmiguel.sospet.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class PostService {
@@ -17,6 +18,6 @@ public class PostService {
 	public Post find(Long id) {
 		Optional<Post> obj =  usuarioRepository.findById(id);
 		
-		return obj.orElseThrow();
+		return obj.orElseThrow(() ->  new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", tipo: "+Post.class.getName()));
 	}
 }
