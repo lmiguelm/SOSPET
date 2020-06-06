@@ -1,9 +1,7 @@
 package com.lmiguel.sospet.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,48 +9,49 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Post implements Serializable {
+public class Comentario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	// ATRIBUTOS
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private Date data;
+	private String texto;
 	
-	private String titulo;
-	
-	private String corpo;
+	private Date instante;
 	
 	
-	// ASSOÇIAÇÕES
+	// ASSOCIAÇÕES
 	
 	@ManyToOne
 	@JoinColumn(name = "autor_id")
 	private Usuario autor;
 	
-	@OneToMany(mappedBy = "post")
-	private List<Comentario> comentarios = new ArrayList<>();
-		
-	public Post() {
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "post_id")
+	private Post post;
+	
+	
+	public Comentario() {
 		
 	}
 
 
-	public Post(Long id, Date data, String titulo, String corpo, Usuario autor) {
+	public Comentario(Long id, String texto, Date instante, Post post, Usuario autor) {
 		super();
 		this.id = id;
-		this.data = data;
-		this.titulo = titulo;
-		this.corpo = corpo;
+		this.texto = texto;
+		this.instante = instante;
 		this.autor = autor;
+		this.post = post;
 	}
 
 
@@ -66,33 +65,23 @@ public class Post implements Serializable {
 	}
 
 
-	public Date getData() {
-		return data;
+	public String getTexto() {
+		return texto;
 	}
 
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
 
-	public String getTitulo() {
-		return titulo;
+	public Date getInstante() {
+		return instante;
 	}
 
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-
-	public String getCorpo() {
-		return corpo;
-	}
-
-
-	public void setCorpo(String corpo) {
-		this.corpo = corpo;
+	public void setInstante(Date instante) {
+		this.instante = instante;
 	}
 
 
@@ -104,14 +93,14 @@ public class Post implements Serializable {
 	public void setAutor(Usuario autor) {
 		this.autor = autor;
 	}
-	
-	public List<Comentario> getComentarios() {
-		return comentarios;
+
+	public Post getPost() {
+		return post;
 	}
 
 
-	public void setComentarios(List<Comentario> comentarios) {
-		this.comentarios = comentarios;
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 
@@ -132,7 +121,7 @@ public class Post implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Post other = (Post) obj;
+		Comentario other = (Comentario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -140,5 +129,4 @@ public class Post implements Serializable {
 			return false;
 		return true;
 	}
-
 }

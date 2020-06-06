@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lmiguel.sospet.domain.enums.SexoPessoa;
 
 @Entity
@@ -42,12 +43,10 @@ public class Usuario implements Serializable {
 	
 	// ASSOCIAÇÕES
 	
-	@OneToMany(mappedBy = "autor")
-	private List<Post> posts = new ArrayList<>();
-	
 	@OneToMany(mappedBy = "usuario", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private Set<Animal> animais = new HashSet<>();
 		
@@ -104,15 +103,7 @@ public class Usuario implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-	
-	public List<Post> getPosts() {
-		return posts;
-	}
 
-	public void setPosts(List<Post> posts) {
-		this.posts = posts;
-	}
-	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}

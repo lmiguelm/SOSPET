@@ -102,13 +102,13 @@ public abstract class Animal implements Serializable {
 	}
 
 
-	public Integer getStatus() {
-		return status;
+	public StatusAnimal getStatus() {
+		return StatusAnimal.toEnum(status);
 	}
 
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setStatus(StatusAnimal status) {
+		this.status = status.getCode();
 	}
 
 
