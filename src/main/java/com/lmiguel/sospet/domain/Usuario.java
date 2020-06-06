@@ -88,12 +88,12 @@ public class Usuario implements Serializable {
 		this.email = email;
 	}
 
-	public Integer getSexo() {
-		return sexo;
+	public SexoPessoa getSexo() {
+		return SexoPessoa.toEnum(sexo);
 	}
 
-	public void setSexo(Integer sexo) {
-		this.sexo = sexo;
+	public void setSexo(SexoPessoa sexo) {
+		this.sexo = sexo.getCode();
 	}
 
 	public Set<String> getTelefones() {

@@ -20,9 +20,7 @@ public class AnimalAdocao extends Animal{
 	// ATRIBUTOS
 	
 	private String nome;
-	
-	private Integer idade;
-	
+		
 	private Integer pelagem;
 	
 	private Boolean castrado;
@@ -34,10 +32,9 @@ public class AnimalAdocao extends Animal{
 		
 	}
 
-	public AnimalAdocao(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, Usuario usuario, String nome, IdadeAnimal idade, TipoPelagem pelagem, Boolean castrado, String raca) {
-		super(id, tipo, sexo, porte, status, usuario);
+	public AnimalAdocao(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, Usuario usuario, String nome, TipoPelagem pelagem, Boolean castrado, String raca) {
+		super(id, tipo, sexo, porte, status, idade ,usuario);
 		this.nome = nome;
-		this.idade = (idade == null) ? null : idade.getCode();
 		this.pelagem = (pelagem == null) ? null : pelagem.getCode();
 		this.castrado = castrado;
 		this.raca = raca;
@@ -49,14 +46,6 @@ public class AnimalAdocao extends Animal{
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public IdadeAnimal getIdade() {
-		return IdadeAnimal.toEnum(idade);
-	}
-
-	public void setIdade(IdadeAnimal idade) {
-		this.idade = idade.getCode();
 	}
 
 	public TipoPelagem getTipoPelagem() {

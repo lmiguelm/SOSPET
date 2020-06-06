@@ -1,5 +1,6 @@
 package com.lmiguel.sospet.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,11 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	public Usuario find(Long id) {
+	public List<Usuario> findAll() {
+		return  usuarioRepository.findAll();
+	}
+	
+	public Usuario findById(Long id) {
 		Optional<Usuario> obj =  usuarioRepository.findById(id);
 		
 		return obj.orElseThrow(() ->  new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", tipo: "+Usuario.class.getName()));

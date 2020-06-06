@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.lmiguel.sospet.domain.enums.IdadeAnimal;
 import com.lmiguel.sospet.domain.enums.PorteAnimal;
 import com.lmiguel.sospet.domain.enums.SexoAnimal;
 import com.lmiguel.sospet.domain.enums.StatusAnimal;
@@ -38,6 +39,8 @@ public abstract class Animal implements Serializable {
 	
 	private Integer status;
 	
+	private Integer idade;
+	
 	
 	// ASSOCIAÇÕES
 	
@@ -51,13 +54,14 @@ public abstract class Animal implements Serializable {
 	}
 
 
-	public Animal(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, Usuario usuario) {
+	public Animal(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, Usuario usuario) {
 		super();
 		this.id = id;
 		this.tipo = (tipo == null) ? null : tipo.getCode();
 		this.sexo = (sexo == null) ? null : sexo.getCode();
 		this.porte = (porte == null) ? null : porte.getCode();
 		this.status = (status == null) ? null : status.getCode();
+		this.idade = (idade == null) ? null : idade.getCode();
 		this.usuario = usuario;
 	}
 
@@ -119,6 +123,14 @@ public abstract class Animal implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public IdadeAnimal getIdade() {
+		return IdadeAnimal.toEnum(idade);
+	}
+
+	public void setIdade(IdadeAnimal idade) {
+		this.idade = idade.getCode();
 	}
 
 

@@ -1,9 +1,7 @@
 package com.lmiguel.sospet.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,12 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Comentario implements Serializable {
+public class RespostaComentario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -39,25 +36,22 @@ public class Comentario implements Serializable {
 	
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name = "post_id")
-	private Post post;
-	
-	@OneToMany(mappedBy = "comentario")
-	private List<RespostaComentario> respostas = new ArrayList<>();
+	@JoinColumn(name = "comentario_id")
+	private Comentario comentario;
 	
 	
-	public Comentario() {
+	public RespostaComentario() {
 		
 	}
 
 
-	public Comentario(Long id, String texto, Date instante, Post post, Usuario autor) {
+	public RespostaComentario(Long id, String texto, Date instante, Comentario comentario, Usuario autor) {
 		super();
 		this.id = id;
 		this.texto = texto;
 		this.instante = instante;
 		this.autor = autor;
-		this.post = post;
+		this.comentario = comentario;
 	}
 
 
@@ -100,22 +94,13 @@ public class Comentario implements Serializable {
 		this.autor = autor;
 	}
 	
-	public Post getPost() {
-		return post;
+	public Comentario getComentario() {
+		return comentario;
 	}
 
 
-	public void setPost(Post post) {
-		this.post = post;
-	}
-
-	public List<RespostaComentario> getRespostas() {
-		return respostas;
-	}
-
-
-	public void setRespostas(List<RespostaComentario> respostas) {
-		this.respostas = respostas;
+	public void setComentario(Comentario comentario) {
+		this.comentario = comentario;
 	}
 
 
@@ -136,7 +121,7 @@ public class Comentario implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Comentario other = (Comentario) obj;
+		RespostaComentario other = (RespostaComentario) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

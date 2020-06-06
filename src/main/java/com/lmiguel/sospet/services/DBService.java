@@ -17,6 +17,7 @@ import com.lmiguel.sospet.domain.Comentario;
 import com.lmiguel.sospet.domain.Endereco;
 import com.lmiguel.sospet.domain.Estado;
 import com.lmiguel.sospet.domain.Post;
+import com.lmiguel.sospet.domain.RespostaComentario;
 import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.domain.enums.IdadeAnimal;
 import com.lmiguel.sospet.domain.enums.PorteAnimal;
@@ -31,6 +32,7 @@ import com.lmiguel.sospet.repositories.ComentarioRepository;
 import com.lmiguel.sospet.repositories.EnderecoRepository;
 import com.lmiguel.sospet.repositories.EstadoRepository;
 import com.lmiguel.sospet.repositories.PostRepository;
+import com.lmiguel.sospet.repositories.RespostaComentarioRepository;
 import com.lmiguel.sospet.repositories.UsuarioRepository;
 
 @Service
@@ -58,6 +60,11 @@ public class DBService {
 	
 	@Autowired
 	private ComentarioRepository comentarioRepository;
+	
+	@Autowired
+	private RespostaComentarioRepository respostaComentarioRepository;
+	
+	
 
 	public void instantiateTestDatabase() throws ParseException {
 		
@@ -97,9 +104,9 @@ public class DBService {
 		
 		
 		
-		Animal a1 = new AnimalDesaparecido(null, TipoAnimal.CACHORRO, SexoAnimal.MACHO, PorteAnimal.GRANDE, StatusAnimal.DESAPARECIDO, u1, "Rex", sdf1.parse("11/09/2019"), "Pitbull", TipoPelagem.CURTA, false);
-		Animal a2 = new AnimalAchado(null, TipoAnimal.GATO, SexoAnimal.FEMEA, PorteAnimal.PEQUENO, StatusAnimal.ACHADO, u1, sdf1.parse("09/12/2018"));
-		Animal a3 = new AnimalAdocao(null, TipoAnimal.CACHORRO, SexoAnimal.MACHO, PorteAnimal.PEQUENO, StatusAnimal.ADOCAO, u2, "Thor", IdadeAnimal.FILHOTE, TipoPelagem.LONGA, true, "Poodle");
+		Animal a1 = new AnimalDesaparecido(null, TipoAnimal.CACHORRO, SexoAnimal.MACHO, PorteAnimal.GRANDE, StatusAnimal.DESAPARECIDO, IdadeAnimal.ADULTO, u1, "Rex", sdf1.parse("11/09/2019"), "Pitbull", TipoPelagem.CURTA, false);
+		Animal a2 = new AnimalAchado(null, TipoAnimal.GATO, SexoAnimal.FEMEA, PorteAnimal.PEQUENO, StatusAnimal.ACHADO, IdadeAnimal.FILHOTE, u1, sdf1.parse("09/12/2018"));
+		Animal a3 = new AnimalAdocao(null, TipoAnimal.CACHORRO, SexoAnimal.MACHO, PorteAnimal.PEQUENO, StatusAnimal.ADOCAO, IdadeAnimal.FILHOTE, u2, "Thor", TipoPelagem.LONGA, true, "Poodle");
 		
 		animalRepository.saveAll(Arrays.asList(a1, a2, a3));	
 		
@@ -109,8 +116,11 @@ public class DBService {
 		Comentario com1 = new Comentario(null, "ok, it's lit", new Date(), p1, u2);
 		Comentario com2 = new Comentario(null, "Olá !! :)", new Date(), p1, u3);
 		
+		RespostaComentario rc1 = new RespostaComentario(null, "ok", new Date(), com1, u1);
+		
 		postRepository.saveAll(Arrays.asList(p1));
 		comentarioRepository.saveAll(Arrays.asList(com1, com2));
+		respostaComentarioRepository.saveAll(Arrays.asList(rc1));
 	}
 
 }

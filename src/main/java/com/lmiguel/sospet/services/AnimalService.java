@@ -1,5 +1,6 @@
 package com.lmiguel.sospet.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +14,15 @@ import com.lmiguel.sospet.services.exceptions.ObjectNotFoundException;
 public class AnimalService {
 	
 	@Autowired
-	private AnimalRepository usuarioRepository;
+	private AnimalRepository animalRepository;
 	
-	public Animal find(Long id) {
-		Optional<Animal> obj =  usuarioRepository.findById(id);
+	
+	public List<Animal> findAll() {
+		return animalRepository.findAll();
+	}
+	
+	public Animal findById(Long id) {
+		Optional<Animal> obj =  animalRepository.findById(id);
 		
 		return obj.orElseThrow(() ->  new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", tipo: "+Animal.class.getName()));
 	}

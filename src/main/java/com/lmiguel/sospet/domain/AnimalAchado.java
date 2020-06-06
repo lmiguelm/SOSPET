@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.lmiguel.sospet.domain.enums.IdadeAnimal;
 import com.lmiguel.sospet.domain.enums.PorteAnimal;
 import com.lmiguel.sospet.domain.enums.SexoAnimal;
 import com.lmiguel.sospet.domain.enums.StatusAnimal;
@@ -26,8 +27,8 @@ public class AnimalAchado extends Animal {
 		
 	}
 
-	public AnimalAchado(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, Usuario usuario, Date dataEncontrado) {
-		super(id, tipo, sexo, porte, status, usuario);
+	public AnimalAchado(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, Usuario usuario, Date dataEncontrado) {
+		super(id, tipo, sexo, porte, status, idade, usuario);
 		this.dataEncontrado = dataEncontrado;
 	}
 
