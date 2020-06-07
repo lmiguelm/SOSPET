@@ -13,6 +13,8 @@ public class AutorDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	private Long id;
+	
 	@NotEmpty(message="Preenchimento obrigatório")
 	@Length(min=5, max=120, message = "O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
@@ -28,6 +30,7 @@ public class AutorDTO implements Serializable {
 	public AutorDTO (Usuario obj) {
 		email = obj.getEmail();
 		nome = obj.getNome();
+		id = obj.getId();
 	}
 
 	public String getNome() {
@@ -44,5 +47,13 @@ public class AutorDTO implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

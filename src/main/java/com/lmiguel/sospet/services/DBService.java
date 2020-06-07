@@ -116,13 +116,15 @@ public class DBService {
 		
 		
 		Post p1 = new Post(null, sdf1.parse("06/06/2020"), "Animais Abandonados", "testestestestestestestestestesteste", u1);
+		Post p2 = new Post(null, sdf1.parse("07/06/2020"), "Teste", "testando", u3);
 		
 		Comentario com1 = new Comentario(null, "ok, it's lit", new Date(), p1, u2);
 		Comentario com2 = new Comentario(null, "Olá !! :)", new Date(), p1, u3);
+		Comentario com3 = new Comentario(null, "ok", new Date(), p2, u1);
 		
 		
-		postRepository.saveAll(Arrays.asList(p1));
-		comentarioRepository.saveAll(Arrays.asList(com1, com2));
+		postRepository.saveAll(Arrays.asList(p1, p2));
+		comentarioRepository.saveAll(Arrays.asList(com1, com2, com3));
 	}
 
 }

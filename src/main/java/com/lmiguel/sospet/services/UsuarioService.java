@@ -54,6 +54,20 @@ public class UsuarioService {
 		return obj;
 	}
 	
+	@Transactional
+	public Usuario update(Usuario obj) {
+		Usuario novoObj = findById(obj.getId());
+		updateData(novoObj, obj);
+		return usuarioRepository.save(novoObj);
+		
+	}
+	
+	private void updateData(Usuario novoObj, Usuario obj) {
+		novoObj.setNome(obj.getNome());
+		novoObj.setEmail(obj.getEmail());
+		novoObj.setSexo(obj.getSexo());
+	}
+	
 	public Usuario fromDTO(UsuarioDTO objDto) {
 		return new Usuario(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSexo(), null);
 	}

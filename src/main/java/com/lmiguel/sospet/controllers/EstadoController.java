@@ -17,6 +17,7 @@ import com.lmiguel.sospet.domain.Cidade;
 import com.lmiguel.sospet.domain.Estado;
 import com.lmiguel.sospet.dto.CidadeDTO;
 import com.lmiguel.sospet.dto.EstadoDTO;
+import com.lmiguel.sospet.dto.NovaCidadeDTO;
 import com.lmiguel.sospet.services.CidadeService;
 import com.lmiguel.sospet.services.EstadoService;
 
@@ -53,6 +54,14 @@ public class EstadoController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Estado obj){
 		obj = estadoService.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
+
+	@RequestMapping(value = "/{estadoId}/cidades", method = RequestMethod.POST)
+	public ResponseEntity<Void> insertCidade(@RequestBody NovaCidadeDTO objDto){
+		Cidade obj = cidadeService.insert(objDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}

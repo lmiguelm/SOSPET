@@ -26,7 +26,6 @@ public class PostDTO implements Serializable {
 	
 	// ASSOÇIAÇÕES
 	
-	@NotEmpty(message = "Preenchimento obrigatório")
 	private AutorDTO autor;
 	
 	private List<ComentarioDTO> comentarios = new ArrayList<>();

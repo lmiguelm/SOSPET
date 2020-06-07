@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.lmiguel.sospet.domain.Endereco;
 import com.lmiguel.sospet.domain.Usuario;
+import com.lmiguel.sospet.dto.EnderecoDTO;
 import com.lmiguel.sospet.dto.NovoUsuarioDTO;
 import com.lmiguel.sospet.dto.UsuarioDTO;
+import com.lmiguel.sospet.services.EnderecoService;
 import com.lmiguel.sospet.services.UsuarioService;
 
 @RestController
@@ -27,6 +30,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private EnderecoService enderecoService;
 
 	
 	// GET
@@ -49,6 +55,12 @@ public class UsuarioController {
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@RequestMapping(value = "/{usuarioId}/enderecos", method = RequestMethod.GET)
+	public ResponseEntity<List<Endereco>> findEnderecos(@PathVariable Long usuarioId){
+		List<Endereco> list = enderecoService.findByUsuario(usuarioId);
+		return ResponseEntity.ok().body(list);
+	}
+	
 	
 	
 	// POST
@@ -57,13 +69,36 @@ public class UsuarioController {
 	public ResponseEntity<Void> insert(@Valid @RequestBody NovoUsuarioDTO objDto){
 		Usuario obj = usuarioService.fromDTO(objDto);
 		obj = usuarioService.insert(obj);
-		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 		
 	}
 	
+	@RequestMapping(value = "/{usuarioId}/enderecos", method = RequestMethod.POST)
+	public ResponseEntity<Void> insertEndereco(@Valid @PathVariable Long usuarioId, @RequestBody EnderecoDTO objDto){
+		Endereco obj = enderecoService.fromDto(objDto, usuarioId);
+		obj = enderecoService.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
+	
 	// PUT
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDto, @PathVariable Long id) {
+		Usuario obj = usuarioService.fromDTO(objDto);
+		obj.setId(id);
+		obj = usuarioService.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{usuarioId}/enderecos/{id}")
+	public ResponseEntity<Void> updateEndereco(@Valid @RequestBody EnderecoDTO objDto, @PathVariable Long usuarioId, @PathVariable Long id){
+		Endereco obj = enderecoService.fromDto(objDto, usuarioId);
+		obj.setId(id);
+		obj = enderecoService.update(obj);
+		return ResponseEntity.noContent().build();
+	}
 	
 	// DELETE
 	

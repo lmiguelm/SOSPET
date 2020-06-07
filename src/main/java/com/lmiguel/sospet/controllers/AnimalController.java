@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lmiguel.sospet.domain.Animal;
+import com.lmiguel.sospet.domain.enums.StatusAnimal;
 import com.lmiguel.sospet.dto.AnimalDTO;
 import com.lmiguel.sospet.dto.NovoAnimalDTO;
 import com.lmiguel.sospet.services.AnimalService;
@@ -50,5 +51,20 @@ public class AnimalController {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		System.out.println(obj.getId());
 		return ResponseEntity.created(uri).build();
+	}
+	
+	
+	// PUT
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody NovoAnimalDTO objDto, @PathVariable Long id) {
+		
+		Animal obj = animalService.findById(id);
+		
+		if(obj.getStatus() == StatusAnimal.DESAPARECIDO)		animalService.updateDesaparecido(objDto, id);
+		if(obj.getStatus() == StatusAnimal.ADOCAO) 				animalService.updateAdocao(objDto, id);
+		if(obj.getStatus() == StatusAnimal.ACHADO) 				animalService.updateAchado(objDto, id);
+
+		return ResponseEntity.noContent().build();
 	}
 }

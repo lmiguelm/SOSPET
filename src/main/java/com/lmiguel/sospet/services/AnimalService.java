@@ -44,26 +44,97 @@ public class AnimalService {
 	
 	@Transactional
 	public Animal insert(NovoAnimalDTO objDto) {
+		Animal obj = null;
+		Usuario usuario = usuarioService.findById(objDto.getUsuarioId());
+		objDto.getStatus();
+		obj = statusAnimal(objDto);
+		obj.setUsuario(usuario);
+		obj = animalRepository.save(obj);
+		return obj;	
+	}
+	
+	@Transactional
+	public Animal updateDesaparecido(NovoAnimalDTO obj, Long id) {
+		AnimalDesaparecido novoObj = (AnimalDesaparecido) findById(id);
+		updateDataDesaparecido(novoObj, obj);
+		return animalRepository.save(novoObj);
+		
+	}
+	
+	@Transactional
+	public Animal updateAdocao(NovoAnimalDTO obj, Long id) {
+		AnimalAdocao novoObj = (AnimalAdocao) findById(id);
+		updateDataAdocao(novoObj, obj);
+		return animalRepository.save(novoObj);
+	}
+	
+	@Transactional
+	public Animal updateAchado(NovoAnimalDTO obj, Long id) {
+		AnimalAchado novoObj = (AnimalAchado) findById(id);
+		updateDataAchado(novoObj, obj);
+		return animalRepository.save(novoObj);
+	}
+	
+
+	private void updateDataAchado(AnimalAchado novoObj, NovoAnimalDTO obj) {
+		try {
+			novoObj.setTipo(obj.getTipo());
+			novoObj.setSexo(obj.getSexo());
+			novoObj.setPorte(obj.getPorte());
+			novoObj.setIdade(obj.getIdade());
+			
+			novoObj.setDataEncontrado(sdf.parse(obj.getDataEncontrado()));
+		}
+		catch (ParseException e) {
+			throw new ObjectNotFoundException("Data invalida");
+		}
+	}
+
+	private void updateDataAdocao(AnimalAdocao novoObj, NovoAnimalDTO obj) {
+		novoObj.setTipo(obj.getTipo());
+		novoObj.setSexo(obj.getSexo());
+		novoObj.setPorte(obj.getPorte());
+		novoObj.setIdade(obj.getIdade());
+		
+		novoObj.setCastrado(obj.getCastrado());
+		novoObj.setNome(obj.getNome());
+		novoObj.setTipoPelagem(obj.getPelagem());
+		novoObj.setRaca(obj.getRaca());
+	}
+
+	private void updateDataDesaparecido(AnimalDesaparecido novoObj, NovoAnimalDTO obj) {
+		try {
+			novoObj.setTipo(obj.getTipo());
+			novoObj.setSexo(obj.getSexo());
+			novoObj.setPorte(obj.getPorte());
+			novoObj.setIdade(obj.getIdade());
+			
+			novoObj.setNome(obj.getNome());
+			novoObj.setUltimaVezVisto(sdf.parse(obj.getUltimaVezVisto()));
+			novoObj.setRaca(obj.getRaca());
+			novoObj.setPelagem(obj.getPelagem());
+			novoObj.setCastrado(obj.getCastrado());
+		}
+		catch (ParseException e) {
+			throw new ObjectNotFoundException("Data invalida");
+		}	
+	}
+	
+	private Animal statusAnimal(NovoAnimalDTO objDto) {
 		try {
 			Animal obj = null;
-			Usuario usuario = usuarioService.findById(objDto.getUsuarioId());
-			objDto.getStatus();
-			
-			System.out.println(objDto.getStatus());
-			
-			if (StatusAnimal.DESAPARECIDO == objDto.getStatus()) {
-				obj = new AnimalDesaparecido(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), usuario, objDto.getNome(), sdf.parse(objDto.getUltimaVezVisto()), objDto.getRaca(), objDto.getPelagem(), objDto.getCastrado());
+			if (objDto.getStatus() == StatusAnimal.DESAPARECIDO) {
+				obj = new AnimalDesaparecido(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), null, objDto.getNome(), sdf.parse(objDto.getUltimaVezVisto()), objDto.getRaca(), objDto.getPelagem(), objDto.getCastrado());
 			}
-			if (StatusAnimal.ACHADO == objDto.getStatus()) {
-				obj = new AnimalAchado(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), usuario, sdf.parse(objDto.getDataEncontrado()));
+			if (objDto.getStatus() == StatusAnimal.ACHADO) {
+				obj = new AnimalAchado(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), null, sdf.parse(objDto.getDataEncontrado()));
 			}
-			if (StatusAnimal.ADOCAO == objDto.getStatus()) {
-				obj = new AnimalAdocao(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), usuario,objDto.getNome(), objDto.getPelagem(), objDto.getCastrado(), objDto.getRaca());
+			if (objDto.getStatus() == StatusAnimal.ADOCAO) {
+				obj = new AnimalAdocao(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), null,objDto.getNome(), objDto.getPelagem(), objDto.getCastrado(), objDto.getRaca());
 			}
 			if (obj == null) {
 				throw new ObjectNotFoundException("Status inválido!");
 			}
-			obj = animalRepository.save(obj);
 			return obj;
 		}
 		catch (ParseException e) {
