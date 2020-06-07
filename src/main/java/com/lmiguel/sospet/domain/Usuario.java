@@ -5,17 +5,20 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lmiguel.sospet.domain.enums.Perfil;
 import com.lmiguel.sospet.domain.enums.SexoPessoa;
 
 @Entity
@@ -36,6 +39,9 @@ public class Usuario implements Serializable {
 	
 	private Integer sexo;
 	
+	@JsonIgnore
+	private String senha;
+	
 	
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
@@ -50,18 +56,24 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "usuario")
 	private Set<Animal> animais = new HashSet<>();
+	
+	@ElementCollection(fetch=FetchType.EAGER)
+	@CollectionTable(name="PERFIS")
+	private Set<Integer> perfis = new HashSet<>();
 		
 	
 	public Usuario() {
 		
 	}
 
-	public Usuario(Long id, String nome, String email, SexoPessoa sexo) {
+	public Usuario(Long id, String nome, String email, SexoPessoa sexo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.sexo = (sexo == null) ? null : sexo.getCode();
+		this.senha = senha;
+		addPerfil(Perfil.USUARIO);
 	}
 	
 
@@ -121,6 +133,21 @@ public class Usuario implements Serializable {
 		this.animais = animais;
 	}
 	
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
+	}
 
 	@Override
 	public int hashCode() {

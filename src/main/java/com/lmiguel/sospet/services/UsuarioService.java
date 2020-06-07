@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,9 @@ public class UsuarioService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 		
 	
 	public List<Usuario> findAll() {
@@ -51,11 +55,11 @@ public class UsuarioService {
 	}
 	
 	public Usuario fromDTO(UsuarioDTO objDto) {
-		return new Usuario(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSexo());
+		return new Usuario(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSexo(), null);
 	}
 	
 	public Usuario fromDTO(NovoUsuarioDTO objDto) {
-		Usuario usuario = new Usuario(null, objDto.getNome(), objDto.getEmail(), SexoPessoa.toEnum(objDto.getSexo()));
+		Usuario usuario = new Usuario(null, objDto.getNome(), objDto.getEmail(), SexoPessoa.toEnum(objDto.getSexo()), pe.encode(objDto.getSenha()));
 		Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco endereco = new Endereco(null, objDto.getBairro(), objDto.getCep(), objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), cidade, usuario);
 		

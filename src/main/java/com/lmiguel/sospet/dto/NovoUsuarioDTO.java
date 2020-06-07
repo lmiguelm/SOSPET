@@ -23,6 +23,9 @@ public class NovoUsuarioDTO implements Serializable{
 	private Integer sexo;
 	
 	@NotEmpty(message="Preenchimento obrigatório")
+	private String senha;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String telefone1;
 	
 	private String telefone2;
@@ -48,7 +51,7 @@ public class NovoUsuarioDTO implements Serializable{
 	}
 
 
-	public NovoUsuarioDTO(String nome, String email, Integer sexo, String telefone1, String telefone2, String telefone3, String bairro, String cep, String logradouro, Integer numero, String complemento, Long cidadeId) {
+	public NovoUsuarioDTO(String nome, String email, Integer sexo, String senha, String telefone1, String telefone2, String telefone3, String bairro, String cep, String logradouro, Integer numero, String complemento, Long cidadeId) {
 		super();
 		this.nome = nome;
 		this.email = email;
@@ -62,6 +65,7 @@ public class NovoUsuarioDTO implements Serializable{
 		this.numero = numero;
 		this.complemento = complemento;
 		this.cidadeId = cidadeId;
+		this.senha = senha;
 	}
 
 
@@ -87,6 +91,16 @@ public class NovoUsuarioDTO implements Serializable{
 
 	public Integer getSexo() {
 		return sexo;
+	}
+
+
+	public String getSenha() {
+		return senha;
+	}
+
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 

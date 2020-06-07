@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lmiguel.sospet.domain.Animal;
@@ -19,6 +20,7 @@ import com.lmiguel.sospet.domain.Estado;
 import com.lmiguel.sospet.domain.Post;
 import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.domain.enums.IdadeAnimal;
+import com.lmiguel.sospet.domain.enums.Perfil;
 import com.lmiguel.sospet.domain.enums.PorteAnimal;
 import com.lmiguel.sospet.domain.enums.SexoAnimal;
 import com.lmiguel.sospet.domain.enums.SexoPessoa;
@@ -59,6 +61,9 @@ public class DBService {
 	@Autowired
 	private ComentarioRepository comentarioRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder pe;
+	
 
 	public void instantiateTestDatabase() throws ParseException {
 		
@@ -75,25 +80,30 @@ public class DBService {
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 	
 		
-		Usuario u1 = new Usuario(null, "Miguel", "miguel@gmail.com", SexoPessoa.MASCULINO);
+		Usuario u1 = new Usuario(null, "Miguel", "miguel@gmail.com", SexoPessoa.MASCULINO, pe.encode("123") );
 		u1.getTelefones().addAll(Arrays.asList("991012427", "99293721"));
 		
-		Usuario u2 = new Usuario(null, "Maria", "maria@gmail.com", SexoPessoa.FEMININO);
+		Usuario u2 = new Usuario(null, "Maria", "maria@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
 		u2.getTelefones().add("998162831");
 		
-		Usuario u3 = new Usuario(null, "Sophia", "sophia@gmail.com", SexoPessoa.FEMININO);
+		Usuario u3 = new Usuario(null, "Sophia", "sophia@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
 		u2.getTelefones().addAll(Arrays.asList("991021212"));
+		
+		Usuario u4 = new Usuario(null, "Admin", "admin@sospet.com", null, pe.encode("123"));
+		u4.addPerfil(Perfil.ADMIN);
 		
 		
 		Endereco e1 = new Endereco(null, "Carmo", "14800-212", "Rua das flores", 812, null, c1, u1);
 		Endereco e2 = new Endereco(null, "Vila dos remédios", "19212-012", "Rua dos remédios", 128, null, c3, u1);
 		Endereco e3 = new Endereco(null, "Jarim das armas", "18217-128", "Rua armamentista", 912, "Apto", c2, u2);
+		Endereco e4 = new Endereco(null, "ADMIN", "ADMIN", "ADMIN", 000, null, c1, u4);
 		
 		u1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		u2.getEnderecos().addAll(Arrays.asList(e2));
 		u3.getEnderecos().addAll(Arrays.asList(e3));
+		u4.getEnderecos().add(e4);
 		
-		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3));
+		usuarioRepository.saveAll(Arrays.asList(u1, u2, u3, u4));
 		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 		
 		
