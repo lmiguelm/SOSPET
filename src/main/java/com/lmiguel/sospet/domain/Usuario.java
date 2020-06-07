@@ -36,6 +36,7 @@ public class Usuario implements Serializable {
 	
 	private Integer sexo;
 	
+	
 	@ElementCollection
 	@CollectionTable(name="TELEFONE")
 	private Set<String> telefones = new HashSet<>();
@@ -119,6 +120,7 @@ public class Usuario implements Serializable {
 	public void setAnimais(Set<Animal> animais) {
 		this.animais = animais;
 	}
+	
 
 	@Override
 	public int hashCode() {

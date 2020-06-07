@@ -2,6 +2,8 @@ package com.lmiguel.sospet.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.lmiguel.sospet.domain.Animal;
 import com.lmiguel.sospet.domain.enums.IdadeAnimal;
 import com.lmiguel.sospet.domain.enums.PorteAnimal;
@@ -14,10 +16,20 @@ public class AnimalDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private Integer tipo;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private Integer sexo;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private Integer porte;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private Integer status;
+	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private Integer idade;
 	
 	public AnimalDTO() {

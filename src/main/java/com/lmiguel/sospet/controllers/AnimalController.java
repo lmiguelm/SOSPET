@@ -1,17 +1,23 @@
 package com.lmiguel.sospet.controllers;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lmiguel.sospet.domain.Animal;
 import com.lmiguel.sospet.dto.AnimalDTO;
+import com.lmiguel.sospet.dto.NovoAnimalDTO;
 import com.lmiguel.sospet.services.AnimalService;
 
 @RestController
@@ -33,5 +39,16 @@ public class AnimalController {
 	public ResponseEntity<Animal> find(@PathVariable Long id){
 		Animal obj = animalService.findById(id);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	
+	// POST
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody NovoAnimalDTO objDto){
+		Animal obj = animalService.insert(objDto);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		System.out.println(obj.getId());
+		return ResponseEntity.created(uri).build();
 	}
 }

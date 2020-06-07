@@ -3,10 +3,10 @@ package com.lmiguel.sospet.domain.enums;
 
 public enum StatusAnimal {
 	
-	DESAPARECIDO(1, "Desaparecido"),
-	ACHADO(2, "Achado"),
-	ADOCAO(3, "Adoção"),
-	ADOTADO(4, "Adotado");
+	DESAPARECIDO(0, "Desaparecido"),
+	ACHADO(1, "Achado"),
+	ADOCAO(2, "Adoção"),
+	ADOTADO(3, "Adotado");
 	
 	private int code;
 	private String desc;

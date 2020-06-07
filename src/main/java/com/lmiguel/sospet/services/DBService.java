@@ -17,7 +17,6 @@ import com.lmiguel.sospet.domain.Comentario;
 import com.lmiguel.sospet.domain.Endereco;
 import com.lmiguel.sospet.domain.Estado;
 import com.lmiguel.sospet.domain.Post;
-import com.lmiguel.sospet.domain.RespostaComentario;
 import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.domain.enums.IdadeAnimal;
 import com.lmiguel.sospet.domain.enums.PorteAnimal;
@@ -32,7 +31,6 @@ import com.lmiguel.sospet.repositories.ComentarioRepository;
 import com.lmiguel.sospet.repositories.EnderecoRepository;
 import com.lmiguel.sospet.repositories.EstadoRepository;
 import com.lmiguel.sospet.repositories.PostRepository;
-import com.lmiguel.sospet.repositories.RespostaComentarioRepository;
 import com.lmiguel.sospet.repositories.UsuarioRepository;
 
 @Service
@@ -60,10 +58,6 @@ public class DBService {
 	
 	@Autowired
 	private ComentarioRepository comentarioRepository;
-	
-	@Autowired
-	private RespostaComentarioRepository respostaComentarioRepository;
-	
 	
 
 	public void instantiateTestDatabase() throws ParseException {
@@ -116,11 +110,9 @@ public class DBService {
 		Comentario com1 = new Comentario(null, "ok, it's lit", new Date(), p1, u2);
 		Comentario com2 = new Comentario(null, "Olá !! :)", new Date(), p1, u3);
 		
-		RespostaComentario rc1 = new RespostaComentario(null, "ok", new Date(), com1, u1);
 		
 		postRepository.saveAll(Arrays.asList(p1));
 		comentarioRepository.saveAll(Arrays.asList(com1, com2));
-		respostaComentarioRepository.saveAll(Arrays.asList(rc1));
 	}
 
 }

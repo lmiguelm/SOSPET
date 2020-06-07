@@ -1,15 +1,11 @@
 package com.lmiguel.sospet.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
-import com.lmiguel.sospet.domain.Post;
-
-public class PostDTO implements Serializable {
+public class NovoPostDTO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -26,24 +22,25 @@ public class PostDTO implements Serializable {
 	
 	// ASSOÇIAÇÕES
 	
-	@NotEmpty(message = "Preenchimento obrigatório")
-	private AutorDTO autor;
+	private Long autorId;
 	
-	private List<ComentarioDTO> comentarios = new ArrayList<>();
-		
-	public PostDTO() {
+	
+	public NovoPostDTO() {
 		
 	}
 
-
-	public PostDTO(Post post, AutorDTO autor, List<ComentarioDTO> c) {
-		this.id = post.getId();
-		this.data = post.getData();
-		this.titulo = post.getTitulo();
-		this.corpo = post.getCorpo();
-		this.autor = autor;
-		this.comentarios = c;
+	
+	public NovoPostDTO(Long id, Date data, String titulo, String corpo, Long autorId) {
+		super();
+		this.id = id;
+		this.data = data;
+		this.titulo = titulo;
+		this.corpo = corpo;
+		this.autorId = autorId;
 	}
+
+
+
 
 
 	public Long getId() {
@@ -86,22 +83,12 @@ public class PostDTO implements Serializable {
 	}
 
 
-	public AutorDTO getAutor() {
-		return autor;
+	public Long getAutorId() {
+		return autorId;
 	}
 
 
-	public void setAutor(AutorDTO autor) {
-		this.autor = autor;
+	public void setAutor(Long autorId) {
+		this.autorId = autorId;
 	}
-	
-	public List<ComentarioDTO> getComentarios() {
-		return comentarios;
-	}
-
-
-	public void setComentarios(List<ComentarioDTO> comentarios) {
-		this.comentarios = comentarios;
-	}
-
 }

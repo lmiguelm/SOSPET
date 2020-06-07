@@ -1,11 +1,9 @@
 package com.lmiguel.sospet.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lmiguel.sospet.domain.Comentario;
 
 public class ComentarioDTO implements Serializable {
@@ -16,7 +14,9 @@ public class ComentarioDTO implements Serializable {
 	private String texto;
 	private Date instante;
 	private AutorDTO autor;
-	private List<RespostaComentarioDTO> respostasComentario = new ArrayList<>();
+	
+	@JsonIgnore
+	private Long postId;
 	
 	public ComentarioDTO() {
 		
@@ -26,8 +26,8 @@ public class ComentarioDTO implements Serializable {
 		id = c.getId();
 		texto = c.getTexto();
 		instante = c.getInstante();
+		setPostId(c.getPost().getId());
 		this.autor = autor;
-		respostasComentario = c.getRespostas().stream().map(r -> new RespostaComentarioDTO(r, r.getAutor())).collect(Collectors.toList());
 	}
 
 	public Long getId() {
@@ -62,11 +62,12 @@ public class ComentarioDTO implements Serializable {
 		this.autor = autor;
 	}
 
-	public List<RespostaComentarioDTO> getRespostas() {
-		return respostasComentario;
+	public Long getPostId() {
+		return postId;
 	}
 
-	public void setRc(List<RespostaComentarioDTO> respostasComentario) {
-		this.respostasComentario = respostasComentario;
+	public void setPostId(Long postId) {
+		this.postId = postId;
 	}
+
 }

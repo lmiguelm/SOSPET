@@ -1,9 +1,7 @@
 package com.lmiguel.sospet.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -40,11 +37,7 @@ public class Comentario implements Serializable {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "post_id")
-	private Post post;
-	
-	@OneToMany(mappedBy = "comentario")
-	private List<RespostaComentario> respostas = new ArrayList<>();
-	
+	private Post post;	
 	
 	public Comentario() {
 		
@@ -108,16 +101,6 @@ public class Comentario implements Serializable {
 	public void setPost(Post post) {
 		this.post = post;
 	}
-
-	public List<RespostaComentario> getRespostas() {
-		return respostas;
-	}
-
-
-	public void setRespostas(List<RespostaComentario> respostas) {
-		this.respostas = respostas;
-	}
-
 
 	@Override
 	public int hashCode() {

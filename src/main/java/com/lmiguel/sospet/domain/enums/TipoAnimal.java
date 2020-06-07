@@ -3,9 +3,9 @@ package com.lmiguel.sospet.domain.enums;
 
 public enum TipoAnimal {
 	
-	CACHORRO(1, "Cachorro"),
-	GATO(2, "Gato"),
-	OUTROS(3, "Outros");
+	CACHORRO(0, "Cachorro"),
+	GATO(1, "Gato"),
+	OUTROS(2, "Outros");
 	
 	private int code;
 	private String desc;

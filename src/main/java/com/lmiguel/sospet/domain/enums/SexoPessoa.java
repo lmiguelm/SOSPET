@@ -3,8 +3,8 @@ package com.lmiguel.sospet.domain.enums;
 
 public enum SexoPessoa {
 	
-	MASCULINO(1, "Masculino"),
-	FEMININO(2, "Feminino");
+	MASCULINO(0, "Masculino"),
+	FEMININO(1, "Feminino");
 	
 	private int code;
 	private String desc;

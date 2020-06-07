@@ -3,8 +3,8 @@ package com.lmiguel.sospet.domain.enums;
 
 public enum IdadeAnimal {
 	
-	FILHOTE(1, "Filhote"),
-	ADULTO(2, "Adulto");
+	FILHOTE(0, "Filhote"),
+	ADULTO(1, "Adulto");
 	
 	private int code;
 	private String desc;

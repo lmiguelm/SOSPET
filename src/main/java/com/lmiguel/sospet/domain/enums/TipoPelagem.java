@@ -3,9 +3,9 @@ package com.lmiguel.sospet.domain.enums;
 
 public enum TipoPelagem {
 	
-	CURTA(1, "Curta"),
-	MEDIA(2, "Média"),
-	LONGA(4, "Longa");
+	CURTA(0, "Curta"),
+	MEDIA(1, "Média"),
+	LONGA(2, "Longa");
 	
 	private int code;
 	private String desc;

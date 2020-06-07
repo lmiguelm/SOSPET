@@ -3,8 +3,8 @@ package com.lmiguel.sospet.domain.enums;
 
 public enum SexoAnimal {
 	
-	MACHO(1, "Macho"),
-	FEMEA(2, "Fêmea");
+	MACHO(0, "Macho"),
+	FEMEA(1, "Fêmea");
 	
 	private int code;
 	private String desc;

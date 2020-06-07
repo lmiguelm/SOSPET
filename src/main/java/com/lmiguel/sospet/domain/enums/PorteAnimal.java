@@ -3,9 +3,9 @@ package com.lmiguel.sospet.domain.enums;
 
 public enum PorteAnimal {
 	
-	PEQUENO(1, "Pequeno"),
-	MEDIO(2, "Médio"),
-	GRANDE(3, "Grande");
+	PEQUENO(0, "Pequeno"),
+	MEDIO(1, "Médio"),
+	GRANDE(2, "Grande");
 	
 	private int code;
 	private String desc;
