@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.lmiguel.sospet.domain.Cidade;
@@ -13,6 +14,7 @@ import com.lmiguel.sospet.domain.Endereco;
 import com.lmiguel.sospet.domain.Estado;
 import com.lmiguel.sospet.dto.NovaCidadeDTO;
 import com.lmiguel.sospet.repositories.CidadeRepository;
+import com.lmiguel.sospet.services.exceptions.DataIntegrityException;
 import com.lmiguel.sospet.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -40,5 +42,13 @@ public class CidadeService {
 		return cidadeRepository.save(c);
 	}
 
-	
+	public void delete(Long id) {
+		findById(id);
+		try {
+			cidadeRepository.deleteById(id);			
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir porque há um estado relacionado.");
+		}
+	}	
 }

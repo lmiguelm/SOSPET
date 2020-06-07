@@ -67,4 +67,13 @@ public class AnimalController {
 
 		return ResponseEntity.noContent().build();
 	}
+	
+	
+	// DELETE
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		animalService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
 }

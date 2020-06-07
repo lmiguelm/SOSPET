@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,6 +65,7 @@ public class PostController {
 	
 	// POST 
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody NovoPostDTO objDto){
 		Post obj = postService.insert(objDto);
@@ -81,6 +83,7 @@ public class PostController {
 	
 	// PUT
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody PostDTO objDto, @PathVariable Long id) {
 		Post obj = postService.fromDTO(objDto);
@@ -94,6 +97,22 @@ public class PostController {
 		Comentario obj = comentarioService.fromDTO(objDto);
 		obj.setId(id);
 		obj = comentarioService.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	// DELETE
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		postService.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	@RequestMapping(value = "/{postId}/comentarios/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deleteComentario(@PathVariable Long postId, @PathVariable Long id){
+		comentarioService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }

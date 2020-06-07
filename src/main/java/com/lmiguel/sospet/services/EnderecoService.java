@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import com.lmiguel.sospet.domain.Endereco;
 import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.dto.EnderecoDTO;
 import com.lmiguel.sospet.repositories.EnderecoRepository;
+import com.lmiguel.sospet.services.exceptions.DataIntegrityException;
 import com.lmiguel.sospet.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -50,6 +52,16 @@ public class EnderecoService {
 		Endereco novoObj = findById(obj.getId());
 		updateData(novoObj, obj);
 		return enderecoRepository.save(obj);
+	}
+	
+	public void delete(Long id) {
+		findById(id);
+		try {			
+			enderecoRepository.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Está tabela sendo utilizada como chave estrangeira em outra tatela. Erro: "+e.getMessage());
+		}
 	}
 
 	private void updateData(Endereco novoObj, Endereco obj) {		

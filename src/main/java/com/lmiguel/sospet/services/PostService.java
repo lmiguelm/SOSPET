@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.lmiguel.sospet.domain.Post;
@@ -14,6 +15,7 @@ import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.dto.NovoPostDTO;
 import com.lmiguel.sospet.dto.PostDTO;
 import com.lmiguel.sospet.repositories.PostRepository;
+import com.lmiguel.sospet.services.exceptions.DataIntegrityException;
 import com.lmiguel.sospet.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -59,5 +61,15 @@ public class PostService {
 
 	public Post fromDTO(PostDTO objDto) {
 		return new Post(objDto.getId(), objDto.getData(), objDto.getTitulo(), objDto.getCorpo(), null);
+	}
+
+	public void delete(Long id) {
+		findById(id);
+		try {
+			postRepository.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel excluir o post pois há itens relacionados.");
+		}
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,7 @@ import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.dto.ComentarioDTO;
 import com.lmiguel.sospet.dto.NovoComentarioDTO;
 import com.lmiguel.sospet.repositories.ComentarioRepository;
+import com.lmiguel.sospet.services.exceptions.DataIntegrityException;
 import com.lmiguel.sospet.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -50,6 +52,16 @@ public class ComentarioService {
 		Comentario novoObj = findById(obj.getId());
 		updateData(novoObj, obj);
 		return comentarioRepository.save(novoObj);
+	}
+	
+	public void delete(Long id) {
+		findById(id);
+		try {
+			comentarioRepository.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir porque há um post relacionado");
+		}
 	}
 
 	private void updateData(Comentario novoObj, Comentario obj) {

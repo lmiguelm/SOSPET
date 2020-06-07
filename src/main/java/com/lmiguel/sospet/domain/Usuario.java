@@ -54,8 +54,28 @@ public class Usuario implements Serializable {
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	private Set<Animal> animais = new HashSet<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
+	private List<Comentario> comentarios = new ArrayList<>();
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
+	}
+
+	public void setPerfis(Set<Integer> perfis) {
+		this.perfis = perfis;
+	}
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "autor", cascade = CascadeType.ALL)
+	private List<Post> posts = new ArrayList<>();
 	
 	@ElementCollection(fetch=FetchType.EAGER)
 	@CollectionTable(name="PERFIS")
@@ -147,6 +167,14 @@ public class Usuario implements Serializable {
 
 	public void addPerfil(Perfil perfil) {
 		perfis.add(perfil.getCod());
+	}
+	
+	public List<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(List<Comentario> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	@Override

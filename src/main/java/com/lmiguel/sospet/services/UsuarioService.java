@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import com.lmiguel.sospet.dto.NovoUsuarioDTO;
 import com.lmiguel.sospet.dto.UsuarioDTO;
 import com.lmiguel.sospet.repositories.EnderecoRepository;
 import com.lmiguel.sospet.repositories.UsuarioRepository;
+import com.lmiguel.sospet.services.exceptions.DataIntegrityException;
 import com.lmiguel.sospet.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -60,6 +62,17 @@ public class UsuarioService {
 		updateData(novoObj, obj);
 		return usuarioRepository.save(novoObj);
 		
+	}
+	
+	@Transactional
+	public void delete(Long id) {
+		findById(id);
+		try {			
+			usuarioRepository.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel deleter este usuário, pois, ele está relacionado a outars tabelas.");
+		}
 	}
 	
 	private void updateData(Usuario novoObj, Usuario obj) {

@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.lmiguel.sospet.domain.Animal;
@@ -18,6 +19,7 @@ import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.domain.enums.StatusAnimal;
 import com.lmiguel.sospet.dto.NovoAnimalDTO;
 import com.lmiguel.sospet.repositories.AnimalRepository;
+import com.lmiguel.sospet.services.exceptions.DataIntegrityException;
 import com.lmiguel.sospet.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -73,6 +75,17 @@ public class AnimalService {
 		AnimalAchado novoObj = (AnimalAchado) findById(id);
 		updateDataAchado(novoObj, obj);
 		return animalRepository.save(novoObj);
+	}
+	
+	@Transactional
+	public void delete(Long id) {
+		findById(id);
+		try {
+			animalRepository.deleteById(id);			
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possivel remover este animal, pois ele está relacionado a um usuário.");
+		}
 	}
 	
 
