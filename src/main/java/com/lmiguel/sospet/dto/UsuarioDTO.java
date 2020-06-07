@@ -35,7 +35,7 @@ public class UsuarioDTO implements Serializable {
 		id = obj.getId();
 		nome = obj.getNome();
 		email = obj.getEmail();
-		sexo = obj.getSexo().getCode();
+		sexo = (obj.getSexo() == null) ? null :  obj.getSexo().getCode();
 	}
 
 	public Long getId() {
