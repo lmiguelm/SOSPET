@@ -71,12 +71,14 @@ public class EstadoController {
 	
 	// DELETE 
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		estadoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{estadoId}/cidades/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deleteCidade(@PathVariable Long id){
 		cidadeService.delete(id);

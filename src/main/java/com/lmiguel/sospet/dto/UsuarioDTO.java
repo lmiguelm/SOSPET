@@ -1,6 +1,8 @@
 package com.lmiguel.sospet.dto;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -26,6 +28,8 @@ public class UsuarioDTO implements Serializable {
 	
 	private Integer sexo;
 	
+	private Set<String> telefones = new HashSet<>();
+	 
 	public UsuarioDTO() {
 		
 	}
@@ -35,6 +39,7 @@ public class UsuarioDTO implements Serializable {
 		nome = obj.getNome();
 		email = obj.getEmail();
 		sexo = (obj.getSexo() == null) ? null :  obj.getSexo().getCode();
+		telefones.addAll(obj.getTelefones());
 	}
 
 	public Long getId() {
@@ -67,5 +72,13 @@ public class UsuarioDTO implements Serializable {
 
 	public void setSexo(SexoPessoa sexo) {
 		this.sexo = sexo.getCode();
+	}
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
 	}
 }

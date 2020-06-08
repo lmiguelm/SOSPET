@@ -1,11 +1,7 @@
 package com.lmiguel.sospet.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import javax.validation.constraints.NotEmpty;
 
 import com.lmiguel.sospet.domain.Post;
 
@@ -18,30 +14,25 @@ public class PostDTO implements Serializable {
 	
 	private Date data;
 	
-	@NotEmpty(message = "Preenchimento obrigatório")
 	private String titulo;
 	
-	@NotEmpty(message = "Preenchimento obrigatório")
 	private String corpo;
 	
 	// ASSOÇIAÇÕES
-	
 	private AutorDTO autor;
 	
-	private List<ComentarioDTO> comentarios = new ArrayList<>();
 		
 	public PostDTO() {
 		
 	}
 
 
-	public PostDTO(Post post, AutorDTO autor, List<ComentarioDTO> c) {
+	public PostDTO(Post post, AutorDTO autor) {
 		this.id = post.getId();
 		this.data = post.getData();
 		this.titulo = post.getTitulo();
 		this.corpo = post.getCorpo();
 		this.autor = autor;
-		this.comentarios = c;
 	}
 
 
@@ -93,14 +84,4 @@ public class PostDTO implements Serializable {
 	public void setAutor(AutorDTO autor) {
 		this.autor = autor;
 	}
-	
-	public List<ComentarioDTO> getComentarios() {
-		return comentarios;
-	}
-
-
-	public void setComentarios(List<ComentarioDTO> comentarios) {
-		this.comentarios = comentarios;
-	}
-
 }
