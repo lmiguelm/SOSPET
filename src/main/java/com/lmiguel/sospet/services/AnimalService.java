@@ -22,6 +22,8 @@ import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.domain.enums.StatusAnimal;
 import com.lmiguel.sospet.dto.NovoAnimalDTO;
 import com.lmiguel.sospet.repositories.AnimalRepository;
+import com.lmiguel.sospet.security.UserSS;
+import com.lmiguel.sospet.services.exceptions.AuthorizationException;
 import com.lmiguel.sospet.services.exceptions.DataIntegrityException;
 import com.lmiguel.sospet.services.exceptions.ObjectNotFoundException;
 
@@ -52,6 +54,18 @@ public class AnimalService {
 		return animalRepository.findAll(pageRequest);
 	}
 	
+	public Page<Animal> findMeusAnimais(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		Usuario usuario = usuarioService.findById(user.getId());
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		System.out.println(user.getId());
+		return animalRepository.findByUsuario(usuario, pageRequest);
+	}
+	
 	@Transactional
 	public Animal insert(NovoAnimalDTO objDto) {
 		Animal obj = null;
@@ -65,29 +79,54 @@ public class AnimalService {
 	
 	@Transactional
 	public Animal updateDesaparecido(NovoAnimalDTO obj, Long id) {
+		
 		AnimalDesaparecido novoObj = (AnimalDesaparecido) findById(id);
+		
+		AutorizacaoService.verificarAutorizacao(novoObj.getUsuario().getId());
+		if(obj.getStatus() != novoObj.getStatus()) {
+			throw new ObjectNotFoundException("Status do animal invalido");
+		}
+		
 		updateDataDesaparecido(novoObj, obj);
 		return animalRepository.save(novoObj);
-		
 	}
 	
 	@Transactional
 	public Animal updateAdocao(NovoAnimalDTO obj, Long id) {
 		AnimalAdocao novoObj = (AnimalAdocao) findById(id);
+		
+		AutorizacaoService.verificarAutorizacao(novoObj.getUsuario().getId());
+
+		if(obj.getStatus() != novoObj.getStatus()) {
+			throw new ObjectNotFoundException("Status do animal invalido");
+		}
+		
 		updateDataAdocao(novoObj, obj);
 		return animalRepository.save(novoObj);
 	}
 	
 	@Transactional
 	public Animal updateAchado(NovoAnimalDTO obj, Long id) {
+		
 		AnimalAchado novoObj = (AnimalAchado) findById(id);
+		
+		AutorizacaoService.verificarAutorizacao(novoObj.getUsuario().getId());
+		
+		if(obj.getStatus() != novoObj.getStatus()) {
+			throw new ObjectNotFoundException("Status do animal invalido");
+		}
+		
 		updateDataAchado(novoObj, obj);
 		return animalRepository.save(novoObj);
 	}
 	
 	@Transactional
 	public void delete(Long id) {
-		findById(id);
+		
+		Animal animal = findById(id);
+		
+		AutorizacaoService.verificarAutorizacao(animal.getUsuario().getId());
+		
 		try {
 			animalRepository.deleteById(id);			
 		}

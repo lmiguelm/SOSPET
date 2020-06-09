@@ -29,17 +29,21 @@ public class EnderecoService {
 	private UsuarioService usuarioService;
 
 	public List<Endereco> findAll() {
+		AutorizacaoService.verificarAutorizacao(null);
 		return enderecoRepository.findAll();
 	}
 	
 	public Endereco findById(Long id) {
+		AutorizacaoService.verificarAutorizacao(null);
 		Optional<Endereco> obj =  enderecoRepository.findById(id);
 		return obj.orElseThrow(() ->  new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", tipo: "+Endereco.class.getName()));
 	}
 	
 	public List<Endereco> findByUsuario(Long usuarioId) {
+		AutorizacaoService.verificarAutorizacao(usuarioId);
 		return enderecoRepository.findEnderecos(usuarioId);
 	}
+	
 	
 	@Transactional
 	public Endereco insert(Endereco obj) {
@@ -55,7 +59,9 @@ public class EnderecoService {
 	}
 	
 	public void delete(Long id) {
-		findById(id);
+		Endereco obj = findById(id);
+		AutorizacaoService.verificarAutorizacao(obj.getUsuario().getId());
+		
 		try {			
 			enderecoRepository.deleteById(id);
 		}

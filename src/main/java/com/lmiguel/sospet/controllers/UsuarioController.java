@@ -59,8 +59,14 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(value = "/{usuarioId}/enderecos", method = RequestMethod.GET)
-	public ResponseEntity<List<Endereco>> findEnderecos(@PathVariable Long usuarioId){
+	public ResponseEntity<List<Endereco>> findEnderecosByUser(@PathVariable Long usuarioId){
 		List<Endereco> list = enderecoService.findByUsuario(usuarioId);
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@RequestMapping(value = "/enderecos", method = RequestMethod.GET)
+	public ResponseEntity<List<Endereco>> findEnderecos(@PathVariable Long usuarioId){
+		List<Endereco> list = enderecoService.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
@@ -105,7 +111,6 @@ public class UsuarioController {
 	
 	// DELETE
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		usuarioService.delete(id);

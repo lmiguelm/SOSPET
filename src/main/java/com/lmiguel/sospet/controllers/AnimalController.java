@@ -55,6 +55,17 @@ public class AnimalController {
 		return ResponseEntity.ok().body(listDto);
 	}
 	
+	@RequestMapping(value = "/meusAnimais", method=RequestMethod.GET)
+	public ResponseEntity<Page<AnimalDTO>> findMeusAnimais(
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="tipo") String orderBy, 
+			@RequestParam(value="direction", defaultValue="ASC") String direction) {
+		Page<Animal> list = animalService.findMeusAnimais(page, linesPerPage, orderBy, direction);
+		Page<AnimalDTO> listDto = list.map(obj -> new AnimalDTO(obj));  
+		return ResponseEntity.ok().body(listDto);
+	}
+	
 	
 	// POST
 	

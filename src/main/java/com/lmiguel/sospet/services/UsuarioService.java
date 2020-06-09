@@ -38,6 +38,7 @@ public class UsuarioService {
 	}
 	
 	public Usuario findById(Long id) {
+		AutorizacaoService.verificarAutorizacao(id);
 		Optional<Usuario> obj =  usuarioRepository.findById(id);
 		
 		return obj.orElseThrow(() ->  new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", tipo: "+Usuario.class.getName()));
@@ -58,6 +59,7 @@ public class UsuarioService {
 	
 	@Transactional
 	public Usuario update(Usuario obj) {
+		AutorizacaoService.verificarAutorizacao(obj.getId());
 		Usuario novoObj = findById(obj.getId());
 		updateData(novoObj, obj);
 		return usuarioRepository.save(novoObj);
@@ -67,6 +69,8 @@ public class UsuarioService {
 	@Transactional
 	public void delete(Long id) {
 		findById(id);
+		AutorizacaoService.verificarAutorizacao(id);
+		
 		try {			
 			usuarioRepository.deleteById(id);
 		}
