@@ -9,7 +9,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lmiguel.sospet.domain.Cidade;
 import com.lmiguel.sospet.domain.Endereco;
 import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.domain.enums.SexoPessoa;
@@ -91,8 +90,7 @@ public class UsuarioService {
 	
 	public Usuario fromDTO(NovoUsuarioDTO objDto) {
 		Usuario usuario = new Usuario(null, objDto.getNome(), objDto.getEmail(), SexoPessoa.toEnum(objDto.getSexo()), pe.encode(objDto.getSenha()));
-		Cidade cidade = new Cidade(objDto.getCidadeId(), null, null);
-		Endereco endereco = new Endereco(null, objDto.getBairro(), objDto.getCep(), objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), cidade, usuario);
+		Endereco endereco = new Endereco(null, objDto.getBairro(), objDto.getCep(), objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getCidade(), objDto.getEstado(), usuario);
 		
 		usuario.getEnderecos().add(endereco);
 		usuario.getTelefones().add(objDto.getTelefone1());

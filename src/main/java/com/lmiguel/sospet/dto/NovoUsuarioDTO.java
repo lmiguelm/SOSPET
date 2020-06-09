@@ -44,14 +44,16 @@ public class NovoUsuarioDTO implements Serializable{
 	
 	private String complemento;
 	
-	private Long cidadeId;
+	private String cidade;
+	
+	private String estado;
 	
 	
 	public NovoUsuarioDTO() {
 	}
 
 
-	public NovoUsuarioDTO(String nome, String email, Integer sexo, String senha, String telefone1, String telefone2, String telefone3, String bairro, String cep, String logradouro, Integer numero, String complemento, Long cidadeId) {
+	public NovoUsuarioDTO(String nome, String email, Integer sexo, String senha, String telefone1, String telefone2, String telefone3, String bairro, String cep, String logradouro, Integer numero, String complemento, String cidade, String estado) {
 		super();
 		this.nome = nome;
 		this.email = email;
@@ -64,8 +66,9 @@ public class NovoUsuarioDTO implements Serializable{
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
-		this.cidadeId = cidadeId;
+		this.cidade = cidade;
 		this.senha = senha;
+		this.estado = estado;
 	}
 
 
@@ -189,14 +192,23 @@ public class NovoUsuarioDTO implements Serializable{
 	}
 
 
-	public Long getCidadeId() {
-		return cidadeId;
+	public String getCidade() {
+		return cidade;
 	}
 
 
-	public void setCidadeId(Long cidadeId) {
-		this.cidadeId = cidadeId;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
 
 
+	public String getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
 }

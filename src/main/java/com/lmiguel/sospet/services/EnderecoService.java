@@ -8,7 +8,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lmiguel.sospet.domain.Cidade;
 import com.lmiguel.sospet.domain.Endereco;
 import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.dto.EnderecoDTO;
@@ -21,9 +20,6 @@ public class EnderecoService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	
-	@Autowired
-	private CidadeService cidadeService;
 	
 	@Autowired
 	private UsuarioService usuarioService;
@@ -79,8 +75,7 @@ public class EnderecoService {
 	}
 
 	public Endereco fromDto(EnderecoDTO objDto, Long usuarioId) {
-		Cidade cidade = cidadeService.findById(objDto.getCidadeId());
 		Usuario usuario = usuarioService.findById(usuarioId);
-		return new Endereco(objDto.getId(), objDto.getBairro(), objDto.getCep(), objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), cidade, usuario);
+		return new Endereco(objDto.getId(), objDto.getBairro(), objDto.getCep(), objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getCidade(), objDto.getEstado(), usuario);
 	}
 }

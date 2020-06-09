@@ -25,7 +25,11 @@ public class EnderecoDTO implements Serializable {
 	
 	private String complemento;
 	
-	private Long cidadeId;
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String cidade;
+	
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String estado;
 	
 	public EnderecoDTO() {
 		
@@ -38,7 +42,8 @@ public class EnderecoDTO implements Serializable {
 		logradouro = obj.getLogradouro();
 		numero = obj.getNumero();
 		complemento = obj.getComplemento();
-		cidadeId = obj.getCidade().getId();
+		cidade = obj.getCidade();
+		estado = obj.getEstado();
 	}
 
 	public String getBairro() {
@@ -81,12 +86,20 @@ public class EnderecoDTO implements Serializable {
 		this.complemento = complemento;
 	}
 
-	public Long getCidadeId() {
-		return cidadeId;
+	public String getCidade() {
+		return cidade;
 	}
 
-	public void setCidadeId(Long cidadeId) {
-		this.cidadeId = cidadeId;
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public Long getId() {

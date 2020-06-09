@@ -13,10 +13,8 @@ import com.lmiguel.sospet.domain.Animal;
 import com.lmiguel.sospet.domain.AnimalAchado;
 import com.lmiguel.sospet.domain.AnimalAdocao;
 import com.lmiguel.sospet.domain.AnimalDesaparecido;
-import com.lmiguel.sospet.domain.Cidade;
 import com.lmiguel.sospet.domain.Comentario;
 import com.lmiguel.sospet.domain.Endereco;
-import com.lmiguel.sospet.domain.Estado;
 import com.lmiguel.sospet.domain.Post;
 import com.lmiguel.sospet.domain.Usuario;
 import com.lmiguel.sospet.domain.enums.IdadeAnimal;
@@ -28,10 +26,8 @@ import com.lmiguel.sospet.domain.enums.StatusAnimal;
 import com.lmiguel.sospet.domain.enums.TipoAnimal;
 import com.lmiguel.sospet.domain.enums.TipoPelagem;
 import com.lmiguel.sospet.repositories.AnimalRepository;
-import com.lmiguel.sospet.repositories.CidadeRepository;
 import com.lmiguel.sospet.repositories.ComentarioRepository;
 import com.lmiguel.sospet.repositories.EnderecoRepository;
-import com.lmiguel.sospet.repositories.EstadoRepository;
 import com.lmiguel.sospet.repositories.PostRepository;
 import com.lmiguel.sospet.repositories.UsuarioRepository;
 
@@ -50,12 +46,6 @@ public class DBService {
 	private EnderecoRepository enderecoRepository;
 	
 	@Autowired
-	private CidadeRepository cidadeRepository;
-	
-	@Autowired
-	private EstadoRepository estadoRepository;
-	
-	@Autowired
 	private PostRepository postRepository;
 	
 	@Autowired
@@ -66,40 +56,6 @@ public class DBService {
 	
 
 	public void instantiateTestDatabase() throws ParseException {
-		
-		Estado est1 = new Estado(null, "São Paulo");
-		Estado est2 = new Estado(null, "Rio de janeiro");
-		Estado est3 = new Estado(null, "Rio Grande do sul");
-		Estado est4 = new Estado(null, "Santa Catarina");
-		Estado est5 = new Estado(null, "Minas Gerais");
-		Estado est6 = new Estado(null, "Bahia");
-		
-		estadoRepository.saveAll(Arrays.asList(est1, est2, est3, est4, est5, est6));
-		
-		
-		Cidade c1 = new Cidade(null, "Araraquara", est1);
-		Cidade c2 = new Cidade(null, "Niterói", est2);
-		Cidade c3 = new Cidade(null, "São paulo", est1);
-		Cidade c4 = new Cidade(null, "Porto Alegre", est3);
-		Cidade c5 = new Cidade(null, "Florianópolis", est4);
-		Cidade c6 = new Cidade(null, "Belo Horizonte", est5);
-		Cidade c7 = new Cidade(null, "Uberlândia", est5);
-		Cidade c8 = new Cidade(null, "Salvador", est6);
-		Cidade c9 = new Cidade(null, "Campinas", est1);
-		Cidade c10 = new Cidade(null, "São Carlos", est1);
-		Cidade c11 = new Cidade(null, "Matão", est1);
-		Cidade c12 = new Cidade(null, "Angra dos Reis", est2);
-		Cidade c13 = new Cidade(null, "Duque de caxias", est2);
-		Cidade c14 = new Cidade(null, "Limeira", est1);
-		Cidade c15 = new Cidade(null, "Rio Claro", est1);
-		Cidade c16 = new Cidade(null, "Santos", est1);
-		Cidade c17 = new Cidade(null, "Jundiaí", est1);
-		Cidade c18 = new Cidade(null, "Ribeirão Preto", est1);
-		Cidade c19 = new Cidade(null, "Bauro", est1);
-		Cidade c20 = new Cidade(null, "Araçatuba", est1);
-		
-		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20));
-	
 		
 		Usuario u1 = new Usuario(null, "Miguel", "miguel@gmail.com", SexoPessoa.MASCULINO, pe.encode("123") );
 		Usuario u2 = new Usuario(null, "Maria", "maria@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
@@ -127,16 +83,16 @@ public class DBService {
 		u11.addPerfil(Perfil.ADMIN);
 		
 		
-		Endereco e1 = new Endereco(null, "Carmo", "14800-212", "Rua das flores", 812, null, c1, u1);
-		Endereco e2 = new Endereco(null, "Vila dos remédios", "19212-012", "Rua dos remédios", 128, null, c3, u1);
-		Endereco e3 = new Endereco(null, "Jarim das flores", "12321-128", "Rua das flores", 911, "Apto", c2, u2);
-		Endereco e4 = new Endereco(null, "Jarim das americas", "18217-128", "Rua americana", 912, null, c12, u3);
-		Endereco e5 = new Endereco(null, "Hortencia", "11117-128", "Rua hortenciana", 123, "Apto", c11, u4);
-		Endereco e6 = new Endereco(null, "Jarim das borboletas", "18217-128", "Rua 5", 136, null, c5, u5);
-		Endereco e7 = new Endereco(null, "Jarim das plantas", "18217-128", "Rua 4", 642, "Apto", c3, u6);
-		Endereco e8 = new Endereco(null, "Jarim das micelli", "18217-128", "Rua 3", 231, null, c9, u7);
-		Endereco e9 = new Endereco(null, "Jarim dos manacas", "18217-128", "Rua 2", 356, "Apto", c18, u8);
-		Endereco e10 = new Endereco(null, "Jarim do scott", "18217-128", "Rua 1", 12, null, c20, u9);
+		Endereco e1 = new Endereco(null, "Jardim santa lúcia", "14800-212", "Rua das flores", 812, null, "Araraquara", "SP", u1);
+		Endereco e2 = new Endereco(null, "Vila dos remédios", "19212-012", "Rua dos remédios", 128, null, "São paulo", "SP", u1);
+		Endereco e3 = new Endereco(null, "Jarim das flores", "12321-128", "Rua das flores", 911, "Apto", "Niterói", "RJ", u2);
+		Endereco e4 = new Endereco(null, "Jarim das americas", "18217-128", "Rua americana", 912, null, "Angra dos Reis", "RJ", u3);
+		Endereco e5 = new Endereco(null, "Hortencia", "11117-128", "Rua hortenciana", 123, "Apto", "Matão", "SP", u4);
+		Endereco e6 = new Endereco(null, "Jarim das borboletas", "18217-128", "Rua 5", 136, null, "Florianópolis", "SC", u5);
+		Endereco e7 = new Endereco(null, "Jarim das plantas", "18217-128", "Rua 4", 642, "Apto", "São paulo", "SP", u6);
+		Endereco e8 = new Endereco(null, "Jarim das micelli", "18217-128", "Rua 3", 231, null, "Campinas", "SP", u7);
+		Endereco e9 = new Endereco(null, "Jarim dos manacas", "18217-128", "Rua 2", 356, "Apto", "Ribeirão Preto", "SP", u8);
+		Endereco e10 = new Endereco(null, "Jarim do scott", "18217-128", "Rua 1", 12, null, "Araçatuba", "SP", u9);
 		
 		u1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		u2.getEnderecos().addAll(Arrays.asList(e2));
