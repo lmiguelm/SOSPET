@@ -57,7 +57,7 @@ public class DBService {
 
 	public void instantiateTestDatabase() throws ParseException {
 		
-		Usuario u1 = new Usuario(null, "Miguel", "miguel@gmail.com", SexoPessoa.MASCULINO, pe.encode("123") );
+		Usuario u1 = new Usuario(null, "Miguel", "emaildesenvolvedor@gmail.com", SexoPessoa.MASCULINO, pe.encode("123") );
 		Usuario u2 = new Usuario(null, "Maria", "maria@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
 		Usuario u3 = new Usuario(null, "Sophia", "sophia@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
 		Usuario u4 = new Usuario(null, "Millene", "millene@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));

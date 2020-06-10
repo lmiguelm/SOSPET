@@ -45,7 +45,6 @@ public class AnimalService {
 	
 	public Animal findById(Long id) {
 		Optional<Animal> obj =  animalRepository.findById(id);
-		
 		return obj.orElseThrow(() ->  new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", tipo: "+Animal.class.getName()));
 	}
 	
@@ -60,9 +59,9 @@ public class AnimalService {
 		if (user == null) {
 			throw new AuthorizationException("Acesso negado");
 		}
+		
 		Usuario usuario = usuarioService.findById(user.getId());
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		System.out.println(user.getId());
 		return animalRepository.findByUsuario(usuario, pageRequest);
 	}
 	

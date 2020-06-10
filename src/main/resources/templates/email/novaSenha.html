@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title th:remove="all">Order Confirmation</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		
+		<style type="text/css">	
+			.container{
+				margin: 0;
+				padding: 0;
+			 	outline: 0;
+			  	box-sizing: border-box;
+			  	background: #fafafa;
+			  	font: 18px sans-serif;
+			  	-webkit-font-smoothing: antialiased !important;
+			  	padding: 10px;
+			  	width: 100%;
+			}
+			.assinatura{
+				font-size: 12px;
+ 				align-items: center; 				
+			}
+			.logo{
+			 	max-width: 110px;
+ 			 	max-height: 110px;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class ="container">
+			<p>Olá <span th:text="${usuario.nome}"></span>,</p><br><br>
+			<p>Você informou que esqueceu a senha de acesso ao nosso site.</p>
+			<p>Alteramos ela temporariamente para: <b><span th:text="${usuario.senha}"></span></b></p>
+			<p>Acesse sua conta e altere sua senha.</p>
+			<br><br><br>
+			<p>Atenciosamente,</p>
+			<p>Equipe SOS PET</p>
+			<br><br><br>
+			<center class ="assinatura">
+				<p>	Favor não responder à este e-mail. Esta é uma mensagem automática.</p><br><br>
+				<p style="font-size: 15px">
+					<img class="logo" src="https://image.flaticon.com/icons/png/512/17/17479.png"/><br>
+					<b>SOS PET</b>
+				</center>
+			</div>
+		</div>
+	</body>
+</html>

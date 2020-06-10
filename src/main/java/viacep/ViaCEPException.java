@@ -11,7 +11,9 @@ package viacep;
  * @author Pablo Alexander da Rocha Gonçalves
  */
 public class ViaCEPException extends Exception {
-    private String CEP;
+    
+	private static final long serialVersionUID = 1L;
+	private String CEP;
     private String Classe;
     
     /**

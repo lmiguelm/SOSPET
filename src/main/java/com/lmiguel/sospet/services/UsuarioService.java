@@ -30,7 +30,6 @@ public class UsuarioService {
 	
 	@Autowired
 	private BCryptPasswordEncoder pe;
-		
 	
 	public List<Usuario> findAll() {
 		return  usuarioRepository.findAll();
@@ -39,7 +38,6 @@ public class UsuarioService {
 	public Usuario findById(Long id) {
 		AutorizacaoService.verificarAutorizacao(id);
 		Optional<Usuario> obj =  usuarioRepository.findById(id);
-		
 		return obj.orElseThrow(() ->  new ObjectNotFoundException("Objeto não encontrado! Id: "+id+", tipo: "+Usuario.class.getName()));
 	}
 	
@@ -58,8 +56,8 @@ public class UsuarioService {
 	
 	@Transactional
 	public Usuario update(Usuario obj) {
-		AutorizacaoService.verificarAutorizacao(obj.getId());
 		Usuario novoObj = findById(obj.getId());
+		AutorizacaoService.verificarAutorizacao(novoObj.getId());
 		updateData(novoObj, obj);
 		return usuarioRepository.save(novoObj);
 		
