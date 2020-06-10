@@ -42,6 +42,7 @@ public abstract class Animal implements Serializable {
 	private Integer idade;
 	
 	
+	
 	// ASSOCIAÇÕES
 	
 	@ManyToOne

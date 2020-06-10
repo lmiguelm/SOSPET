@@ -57,17 +57,17 @@ public class DBService {
 
 	public void instantiateTestDatabase() throws ParseException {
 		
-		Usuario u1 = new Usuario(null, "Miguel", "emaildesenvolvedor@gmail.com", SexoPessoa.MASCULINO, pe.encode("123") );
-		Usuario u2 = new Usuario(null, "Maria", "maria@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
-		Usuario u3 = new Usuario(null, "Sophia", "sophia@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
-		Usuario u4 = new Usuario(null, "Millene", "millene@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
-		Usuario u5 = new Usuario(null, "Leonardo", "leonarod@gmail.com", SexoPessoa.MASCULINO, pe.encode("123"));
-		Usuario u6 = new Usuario(null, "João Victor", "joao@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
-		Usuario u7 = new Usuario(null, "Daniel", "daniel@gmail.com", SexoPessoa.MASCULINO, pe.encode("123"));
-		Usuario u8 = new Usuario(null, "Mario", "mario@gmail.com", SexoPessoa.MASCULINO, pe.encode("123"));
-		Usuario u9 = new Usuario(null, "Mariana", "mariana@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
-		Usuario u10 = new Usuario(null, "Joana", "joana@gmail.com", SexoPessoa.FEMININO, pe.encode("123"));
-		Usuario u11 = new Usuario(null, "ADMIN", "amdin@sospet.com", null, pe.encode("123"));
+		Usuario u1 = new Usuario(null, "Miguel", "emaildesenvolvedor@gmail.com", SexoPessoa.MASCULINO, "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg", pe.encode("123") );
+		Usuario u2 = new Usuario(null, "Maria", "maria@gmail.com", SexoPessoa.FEMININO, "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg", pe.encode("123"));
+		Usuario u3 = new Usuario(null, "Sophia", "sophia@gmail.com", SexoPessoa.FEMININO, "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg", pe.encode("123"));
+		Usuario u4 = new Usuario(null, "Millene", "millene@gmail.com", SexoPessoa.FEMININO, "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg", pe.encode("123"));
+		Usuario u5 = new Usuario(null, "Leonardo", "leonarod@gmail.com", SexoPessoa.MASCULINO, "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg",  pe.encode("123"));
+		Usuario u6 = new Usuario(null, "João Victor", "joao@gmail.com", SexoPessoa.FEMININO,  "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg", pe.encode("123"));
+		Usuario u7 = new Usuario(null, "Daniel", "daniel@gmail.com", SexoPessoa.MASCULINO, "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg",  pe.encode("123"));
+		Usuario u8 = new Usuario(null, "Mario", "mario@gmail.com", SexoPessoa.MASCULINO, "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg",  pe.encode("123"));
+		Usuario u9 = new Usuario(null, "Mariana", "mariana@gmail.com", SexoPessoa.FEMININO, "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg",  pe.encode("123"));
+		Usuario u10 = new Usuario(null, "Joana", "joana@gmail.com", SexoPessoa.FEMININO, "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg",  pe.encode("123"));
+		Usuario u11 = new Usuario(null, "ADMIN", "amdin@sospet.com", null, "https://sospet.s3-sa-east-1.amazonaws.com/user_profile_sem_foto.jpg",  pe.encode("123"));
 		
 		u1.getTelefones().addAll(Arrays.asList("991012427", "991827192"));
 		u2.getTelefones().addAll(Arrays.asList("991827361"));
