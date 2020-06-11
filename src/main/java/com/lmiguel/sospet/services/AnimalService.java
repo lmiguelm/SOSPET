@@ -1,5 +1,7 @@
 package com.lmiguel.sospet.services;
 
+import java.awt.image.BufferedImage;
+import java.net.URI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -8,11 +10,13 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.lmiguel.sospet.domain.Animal;
 import com.lmiguel.sospet.domain.AnimalAchado;
@@ -37,6 +41,15 @@ public class AnimalService {
 	
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private S3Service s3Service;
+	
+	@Autowired
+	private ImageService imageService;
+	
+	@Value("${img.prefix.animal}")
+	private String prefix;
 	
 	
 	public List<Animal> findAll() {
@@ -183,13 +196,13 @@ public class AnimalService {
 		try {
 			Animal obj = null;
 			if (objDto.getStatus() == StatusAnimal.DESAPARECIDO) {
-				obj = new AnimalDesaparecido(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), null, objDto.getNome(), sdf.parse(objDto.getUltimaVezVisto()), objDto.getRaca(), objDto.getPelagem(), objDto.getCastrado());
+				obj = new AnimalDesaparecido(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), "https://sospet.s3-sa-east-1.amazonaws.com/sem_foto.jpg", null, objDto.getNome(), sdf.parse(objDto.getUltimaVezVisto()), objDto.getRaca(), objDto.getPelagem(), objDto.getCastrado());
 			}
 			if (objDto.getStatus() == StatusAnimal.ACHADO) {
-				obj = new AnimalAchado(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), null, sdf.parse(objDto.getDataEncontrado()));
+				obj = new AnimalAchado(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), "https://sospet.s3-sa-east-1.amazonaws.com/sem_foto.jpg", null, sdf.parse(objDto.getDataEncontrado()));
 			}
 			if (objDto.getStatus() == StatusAnimal.ADOCAO) {
-				obj = new AnimalAdocao(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), null,objDto.getNome(), objDto.getPelagem(), objDto.getCastrado(), objDto.getRaca());
+				obj = new AnimalAdocao(null, objDto.getTipo(), objDto.getSexo(), objDto.getPorte(), objDto.getStatus(), objDto.getIdade(), "https://sospet.s3-sa-east-1.amazonaws.com/sem_foto.jpg", null, objDto.getNome(), objDto.getPelagem(), objDto.getCastrado(), objDto.getRaca());
 			}
 			if (obj == null) {
 				throw new ObjectNotFoundException("Status inválido!");
@@ -199,6 +212,23 @@ public class AnimalService {
 		catch (ParseException e) {
 			throw new ObjectNotFoundException("Data invalida");
 		}
+	}
+	
+	public URI uploadProfilePicture(MultipartFile multipartFile, Long id) {
 		
+		UserSS user = UserService.authenticated();
+		Animal animal = findById(id);
+		
+		if (user == null && animal == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		
+		String fileName = prefix + animal.getId() + ".jpg";
+		animal.setImagemUrl("https://sospet.s3.sa-east-1.amazonaws.com/"+fileName);
+		animalRepository.save(animal);
+			
+		return s3Service.uploadFile(imageService.getInputStrem(jpgImage, "jpg"), fileName, "image");
 	}
 }

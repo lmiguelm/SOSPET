@@ -27,8 +27,8 @@ public class AnimalAchado extends Animal {
 		
 	}
 
-	public AnimalAchado(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, Usuario usuario, Date dataEncontrado) {
-		super(id, tipo, sexo, porte, status, idade, usuario);
+	public AnimalAchado(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, String imagemUrl, Usuario usuario, Date dataEncontrado) {
+		super(id, tipo, sexo, porte, status, idade, imagemUrl, usuario);
 		this.dataEncontrado = dataEncontrado;
 	}
 

@@ -28,7 +28,7 @@ public class UsuarioDTO implements Serializable {
 	
 	private Integer sexo;
 	
-	private String foto;
+	private String imagemUrl;
 	
 	private Set<String> telefones = new HashSet<>();
 	 
@@ -42,7 +42,7 @@ public class UsuarioDTO implements Serializable {
 		email = obj.getEmail();
 		sexo = (obj.getSexo() == null) ? null :  obj.getSexo().getCode();
 		telefones.addAll(obj.getTelefones());
-		foto = obj.getFoto();
+		imagemUrl = obj.getImagemUrl();
 	}
 
 	public Long getId() {
@@ -85,12 +85,12 @@ public class UsuarioDTO implements Serializable {
 		this.telefones = telefones;
 	}
 
-	public String getFoto() {
-		return foto;
+	public String getImagemUrl() {
+		return imagemUrl;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
 	}
 	
 	

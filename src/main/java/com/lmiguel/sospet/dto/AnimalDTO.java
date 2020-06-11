@@ -32,6 +32,8 @@ public class AnimalDTO implements Serializable {
 	@NotEmpty(message="Preenchimento obrigatório")
 	private Integer idade;
 	
+	private String imagemUrl;
+	
 	public AnimalDTO() {
 	}
 	
@@ -42,6 +44,7 @@ public class AnimalDTO implements Serializable {
 		porte = obj.getPorte().getCode();
 		status = obj.getStatus().getCode();
 		idade = (obj.getIdade().getCode());
+		setImagemUrl(obj.getImagemUrl());
 	}
 
 	public Long getId() {
@@ -90,5 +93,13 @@ public class AnimalDTO implements Serializable {
 
 	public void setIdade(IdadeAnimal idade) {
 		this.idade = idade.getCode();
+	}
+
+	public String getImagemUrl() {
+		return imagemUrl;
+	}
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
 	}
 }

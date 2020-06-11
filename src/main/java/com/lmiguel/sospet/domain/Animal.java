@@ -41,6 +41,8 @@ public abstract class Animal implements Serializable {
 	
 	private Integer idade;
 	
+	private String imagemUrl;
+	
 	
 	
 	// ASSOCIAÇÕES
@@ -55,7 +57,7 @@ public abstract class Animal implements Serializable {
 	}
 
 
-	public Animal(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, Usuario usuario) {
+	public Animal(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, String imagemUrl, Usuario usuario) {
 		super();
 		this.id = id;
 		this.tipo = (tipo == null) ? null : tipo.getCode();
@@ -64,6 +66,7 @@ public abstract class Animal implements Serializable {
 		this.status = (status == null) ? null : status.getCode();
 		this.idade = (idade == null) ? null : idade.getCode();
 		this.usuario = usuario;
+		this.imagemUrl = imagemUrl;
 	}
 
 
@@ -132,6 +135,15 @@ public abstract class Animal implements Serializable {
 
 	public void setIdade(IdadeAnimal idade) {
 		this.idade = idade.getCode();
+	}
+
+	public String getImagemUrl() {
+		return imagemUrl;
+	}
+
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
 	}
 
 

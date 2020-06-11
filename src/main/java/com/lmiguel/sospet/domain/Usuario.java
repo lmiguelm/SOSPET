@@ -42,7 +42,7 @@ public class Usuario implements Serializable {
 	@JsonIgnore
 	private String senha;
 	
-	private String foto;
+	private String imgemUrl;
 	
 	
 	@ElementCollection
@@ -88,13 +88,13 @@ public class Usuario implements Serializable {
 		
 	}
 
-	public Usuario(Long id, String nome, String email, SexoPessoa sexo, String foto, String senha) {
+	public Usuario(Long id, String nome, String email, SexoPessoa sexo, String imgemUrl, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.sexo = (sexo == null) ? null : sexo.getCode();
-		this.foto = foto;
+		this.imgemUrl = imgemUrl;
 		this.senha = senha;
 		addPerfil(Perfil.USUARIO);
 	}
@@ -180,12 +180,12 @@ public class Usuario implements Serializable {
 		this.comentarios = comentarios;
 	}
 	
-	public String getFoto() {
-		return foto;
+	public String getImagemUrl() {
+		return imgemUrl;
 	}
 
-	public void setFoto(String foto) {
-		this.foto = foto;
+	public void setImagemUrl(String imgemUrl) {
+		this.imgemUrl = imgemUrl;
 	}
 
 	@Override

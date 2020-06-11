@@ -101,7 +101,7 @@ public class UsuarioService {
 	}
 	
 	public Usuario fromDTO(UsuarioDTO objDto) {
-		return new Usuario(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSexo(), objDto.getFoto(), null);
+		return new Usuario(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getSexo(), objDto.getImagemUrl(), null);
 	}
 	
 	public Usuario fromDTO(NovoUsuarioDTO objDto) {
@@ -136,11 +136,25 @@ public class UsuarioService {
 		String fileName = prefix + user.getId() + ".jpg";
 		
 		Usuario usuario = findById(user.getId());
-		usuario.setFoto("https://sospet.s3.sa-east-1.amazonaws.com/"+fileName);
+		usuario.setImagemUrl("https://sospet.s3.sa-east-1.amazonaws.com/"+fileName);
 		update(usuario);
 		
 		return s3Service.uploadFile(imageService.getInputStrem(jpgImage, "jpg"), fileName, "image");
 	}
+	
+	public void removerImagemPerfil() {
+		
+		UserSS user = UserService.authenticated();
+		
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
+		Usuario usuario = findById(user.getId());
+		usuario.setImagemUrl("https://sospet.s3.sa-east-1.amazonaws.com/user_profile_sem_foto.jpg");
+		update(usuario);
+	}
+
 }
 
 

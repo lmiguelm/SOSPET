@@ -18,6 +18,8 @@ public class PostDTO implements Serializable {
 	
 	private String corpo;
 	
+	private String imagemUrl;
+	
 	// ASSOÇIAÇÕES
 	private AutorDTO autor;
 	
@@ -33,6 +35,7 @@ public class PostDTO implements Serializable {
 		this.titulo = post.getTitulo();
 		this.corpo = post.getCorpo();
 		this.autor = autor;
+		this.setImagemUrl(post.getImagemUrl());
 	}
 
 
@@ -83,5 +86,15 @@ public class PostDTO implements Serializable {
 
 	public void setAutor(AutorDTO autor) {
 		this.autor = autor;
+	}
+
+
+	public String getImagemUrl() {
+		return imagemUrl;
+	}
+
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
 	}
 }

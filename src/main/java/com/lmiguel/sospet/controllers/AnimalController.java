@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lmiguel.sospet.domain.Animal;
@@ -76,6 +77,13 @@ public class AnimalController {
 		System.out.println(obj.getId());
 		return ResponseEntity.created(uri).build();
 	}
+	
+	@RequestMapping(value = "/picture/{id}", method=RequestMethod.POST)
+	public ResponseEntity<Void> uploadProfilePicture(@PathVariable Long id, @RequestParam(name = "file") MultipartFile file) {	
+		URI uri = animalService.uploadProfilePicture(file, id);
+		return ResponseEntity.created(uri).build();
+	}
+	
 	
 	
 	// PUT

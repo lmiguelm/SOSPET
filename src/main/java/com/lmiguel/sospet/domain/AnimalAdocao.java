@@ -32,8 +32,8 @@ public class AnimalAdocao extends Animal{
 		
 	}
 
-	public AnimalAdocao(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, Usuario usuario, String nome, TipoPelagem pelagem, Boolean castrado, String raca) {
-		super(id, tipo, sexo, porte, status, idade ,usuario);
+	public AnimalAdocao(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, String imagemUrl, Usuario usuario, String nome, TipoPelagem pelagem, Boolean castrado, String raca) {
+		super(id, tipo, sexo, porte, status, idade ,imagemUrl, usuario);
 		this.nome = nome;
 		this.pelagem = (pelagem == null) ? null : pelagem.getCode();
 		this.castrado = castrado;

@@ -25,7 +25,7 @@ public class NovoAnimalDTO implements Serializable {
 	private Integer status;
 	
 	private Integer idade;
-	
+		
 	
 	// ACHADO
 	

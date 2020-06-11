@@ -36,8 +36,8 @@ public class AnimalDesaparecido extends Animal {
 		
 	}
 
-	public AnimalDesaparecido(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, Usuario usuario, String nome, Date ultimaVezVisto, String raca, TipoPelagem pelagem, Boolean castrado) {
-		super(id, tipo, sexo, porte, status, idade, usuario);
+	public AnimalDesaparecido(Long id, TipoAnimal tipo, SexoAnimal sexo, PorteAnimal porte, StatusAnimal status, IdadeAnimal idade, String imagemUrl, Usuario usuario, String nome, Date ultimaVezVisto, String raca, TipoPelagem pelagem, Boolean castrado) {
+		super(id, tipo, sexo, porte, status, idade, imagemUrl, usuario);
 		this.nome = nome;
 		this.ultimaVezVisto = ultimaVezVisto;
 		this.raca = raca;

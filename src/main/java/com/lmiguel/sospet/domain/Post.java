@@ -32,6 +32,8 @@ public class Post implements Serializable {
 	
 	private String corpo;
 	
+	private String imagemUrl;
+	
 	
 	// ASSOÇIAÇÕES
 	
@@ -47,13 +49,14 @@ public class Post implements Serializable {
 	}
 
 
-	public Post(Long id, Date data, String titulo, String corpo, Usuario autor) {
+	public Post(Long id, Date data, String titulo, String corpo, String imagemUrl, Usuario autor) {
 		super();
 		this.id = id;
 		this.data = data;
 		this.titulo = titulo;
 		this.corpo = corpo;
 		this.autor = autor;
+		this.imagemUrl = imagemUrl;
 	}
 
 
@@ -113,6 +116,15 @@ public class Post implements Serializable {
 
 	public void setComentarios(List<Comentario> comentarios) {
 		this.comentarios = comentarios;
+	}
+	
+	public String getImagemUrl() {
+		return imagemUrl;
+	}
+
+
+	public void setImagemUrl(String imagemUrl) {
+		this.imagemUrl = imagemUrl;
 	}
 
 

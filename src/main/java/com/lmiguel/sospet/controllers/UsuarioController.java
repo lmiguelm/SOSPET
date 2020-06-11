@@ -130,4 +130,11 @@ public class UsuarioController {
 		enderecoService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(value = "/picture", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> removerImagemPerfil(){
+		usuarioService.removerImagemPerfil();
+		return ResponseEntity.noContent().build();
+	}
+	
 }
